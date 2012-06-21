@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+  <head>
+    <title>Composer - zarządzanie zależnościami w PHP</title>
+
+    <meta charset='utf-8'>
+    <script
+      src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+  </head>
+  
+  <style>
+    /* Your individual styles here, or just use inline styles if that’s
+       what you want. */
+    
+    
+  </style>
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular'>
+
+      <article>
+        <h1>
+          Composer
+          <br>
+          Zarządzanie zależnościami w PHP
+        </h1>
+
+        <p>
+          Michał Pipa
+          <br>
+          21 czerwca 2012
+        </p>
+      </article>
+
+      <article>
+        <h3>O mnie</h3>
+
+        <ul class="build">
+          <li>Jestem programistą PHP</li>
+          <li>Pracuję w firmie <a href="http://www.xsolve.pl/">XSolve</a></li>
+          <li>Od 5 lat używam frameworka <a href="http://symfony.com/">Symfony</a></li>
+          <li><a href="https://github.com/michal-pipa">https://github.com/michal-pipa</a></li>
+          <li><a href="https://connect.sensiolabs.com/profile/michal.pipa">https://connect.sensiolabs.com/profile/michal.pipa</a></li>
+          <li><a href="http://spug.pl/">Silesian PHP User Group</a></li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Ankieta</h3>
+
+        <ul class="build">
+          <li>Kto programuje w PHP?</li>
+          <li>Kto używa frameworków PHP?</li>
+          <li>Kto słyszał o <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">PSR-0?</a></li>
+          <li>Kto używa systemu kontroli wersji?</li>
+          <li>Kto używa Gita?</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Zarządzanie zależnościami</h3>
+
+        <ul class="build">
+          <li>Większość projektów używa zewnętrznych bibliotek. Te biblioteki z kolei często wprowadzają kolejne zależności.</li>
+          <li>Na przykład Symfony Standard Edition ma 11 zależności, które wprowadzają kolejne zależności.</li>
+          <li>Czy wspominałem już Zend Framework (<a href="https://github.com/symfony/symfony/issues/3973">RFC: Integrate Zend\Filter into Form</a>)?</li>
+          <li>Problem robi się coraz większy, gdy musimy utrzymywać wiele różnych projektów.</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>PEAR</h3>
+
+        <ul class="build">
+          <li>PEAR instaluje pakiety globalnie</li>
+          <li>Tworzenie własnych pakietów i własnego kanału jest skomplikowane (<a href="http://pirum.sensiolabs.org/">Prium</a> rozwiązuje problem tworzenia kanału, <a href="http://pearfarm.org/">Pearfarm</a> ułatwia tworzenie pakietów)</li>
+          <li>Definiowanie zależności dla projektu nie jest elastyczne</li>
+          <li>Instalacja samego narzędzia sprawia jeszcze czasem problemy</li>
+          <li>Ogólnie jest zbyt skomplikowany (<a href="http://example.preinheimer.com/phpunit.html">My quest to test ZendFramework...</a>): PEAR oznacza bibliotekę, system instalacji pakietów, styl kodowania, PECL, społeczność</li>
+          <li><a href="http://pear2.php.net/">Pyrus</a> (PEAR2) nie zyskał popularności</li>
+        </ul>
+      </article>
+
+      <article class="smaller">
+        <h3>PEAR</h3>
+
+        <q>Frankly, the PEAR packages are more or less obsolete as we now have Composer. Installing Symfony or any other framework for that matter globally on a system does not make much sense.</q>
+        <div class="author" style="font-size: 25px;">
+          Fabien Potencier, <a href="https://groups.google.com/d/msg/symfony-devs/TfS0LUqalLw/PCgzTccKcBMJ">Tests in PEAR packages?</a>
+        </div>
+      </article>
+
+      <article>
+        <a href="http://getcomposer.org/"><img class="centered" style="height: 356px" src="images/logo-composer-transparent.png"></a>
+      </article>
+
+      <article>
+        <h3>Jak działa Composer?</h3>
+
+        <ul class="build">
+          <li>Nasz projekt używa wielu bibliotek</li>
+          <li>Niektóre z nich używają kolejnych bibliotek</li>
+          <li>Deklarujemy czego używamy</li>
+          <li>Composer odnajduje jakich wersji bibliotek potrzebujemy i je instaluje</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Composer</h3>
+
+        <ul class="build">
+          <li>Zarządza zależnościami, nie pakietami</li>
+          <li>Instaluje pakiety tylko lokalnie</li>
+          <li>Łatwy w użyciu</li>
+          <li>Elastyczny</li>
+          <li>Wprowadza dobre praktyki: <a href="https://github.com/php-fig/fig-standards">PSR</a>, <a href="http://spdx.org/">SPDX</a>, <a href="http://semver.org/">semver</a></li>
+          <li>W tej chwili jest w wersji alpha, stabilne wydnie jest planowane na koniec lata</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Composer</h3>
+
+        <h4>Inspiracja</h4>
+        <ul>
+          <li><a href="http://npmjs.org/">npm</a></li>
+          <li><a href="http://gembundler.com/">Bundler</a></li>
+        </ul>
+
+        <h4>Autorzy</h4>
+        <ul>
+          <li><a href="http://www.naderman.de/">Nils Adermann</a></li>
+          <li><a href="http://seld.be/">Jordi Boggiano</a></li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Composer</h3>
+
+        <h4>Instalacja</h4>
+<pre>$ curl -s http://getcomposer.org/installer | php
+$ sudo mv composer.phar /usr/local/bin/composer</pre>
+
+        <h4>Aktualizacja</h4>
+<pre>$ composer.phar self-update</pre>
+      </article>
+
+      <article>
+        <h3>Definiowanie zależności dla projektu</h3>
+
+        <p>composer.json</p>
+
+<pre>{
+    "require": {
+        "monolog/monolog": "1.0.*"
+    }
+}</pre>
+
+<pre>$ composer.phar install</pre>
+
+<pre>Installing dependencies
+  - Installing monolog/monolog (1.0.2)
+    Downloading: 100%
+
+Writing lock file
+Generating autoload files</pre>
+      </article>
+
+      <article>
+        <h3>Instalowanie zależności w projekcie</h3>
+
+<pre>$ git clone git://github.com/symfony/symfony-standard.git
+$ cd symfony-standard
+$ composer.phar install</pre>
+<pre>Installing dependencies from lock file
+  - Installing doctrine/common (2.2.2)
+    Downloading: 100%
+[...]
+symfony/symfony suggests installing doctrine/data-fixtures (1.0.*)
+[...]
+Generating autoload files
+Clearing the cache for the dev environment with debug true
+Installing assets using the hard copy option
+Installing assets for Acme\DemoBundle into web/bundles/acmedemo
+[...]
+      </article>
+
+      <article>
+        <h3>Co zostało utworzone?</h3>
+
+        <ul class="build">
+          <li>Katalog <code>vendor/</code></li>
+          <li>Plik <code>composer.lock</code></li>
+          <li>Konfiguracja loadera (<code>vendor/autoload.php</code>)</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>composer.lock</h3>
+
+        <ul class="build">
+          <li class="red"><strong>Ten plik powinien być wersjonowany w VCS (razem z <code>composer.json</code>)</strong></li>
+          <li>Wersjonowanie obu tych plików zapewnia, że każdy kto będzie instalował biblioteki dla projektu, zainstaluje tę samą ich wersję</li>
+          <li>Polecenie <code>install</code> w pierwszej kolejności sprawdza wersję biblioteki w <code>composer.lock</code>, jeżeli on istnieje</li>
+          <li>Jeżeli <code>composer.lock</code> nie istnieje, to wtedy sprawdzany jest <code>composer.json</code> i tworzony <code>composer.lock</code></li>
+          <li>Polecenie <code>update</code> aktualizuje biblioteki do najnowszej wersji pasującej do <code>composer.json</code> i zapisuje te wersje w <code>composer.lock</code></li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>composer.lock</h3>
+
+<pre>{
+    "hash": "e4e3109acc8a04877ee974efb7478127",
+    "packages": [
+        {
+            "package": "monolog/monolog",
+            "version": "1.0.2"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": [
+
+    ]
+}</pre>
+      </article>
+
+      <article>
+        <h3>Autoloader</h3>
+
+<pre>require 'vendor/autoload.php';</pre>
+      </article>
+
+      <article>
+        <h3>Autoloader</h3>
+
+        <p>Przykład użycia Monologa:</p>
+
+<pre>$log = new Monolog\Logger('name');
+$log-&gt;pushHandler(new Monolog\Handler\StreamHandler('app.log',
+    Monolog\Logger::WARNING));
+
+$log-&gt;addWarning('Foo');</pre>
+      </article>
+
+      <article>
+        <h3><a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">PSR-0</a></h3>
+
+        <p>Jest to mapowanie nazwy klasy (razem z przestrzenią nazw) na ścieżkę do pliku z definicją tej klasy, aby ją następnie załadować.</p>
+<pre>
+\Doctrine\Common\IsolatedClassLoader
+=&gt;/path/to/project/lib/vendor/Doctrine/Common/IsolatedClassLoader.php
+\Symfony\Core\Request
+=&gt; /path/to/project/lib/vendor/Symfony/Core/Request.php
+\Zend\Acl =&gt; /path/to/project/lib/vendor/Zend/Acl.php
+\Zend\Mail\Message
+=&gt; /path/to/project/lib/vendor/Zend/Mail/Message.php
+\namespace\package\Class_Name
+=&gt; /path/to/project/lib/vendor/namespace/package/Class/Name.php
+\namespace\package_name\Class_Name
+=&gt; /path/to/project/lib/vendor/namespace/package_name/Class/Name.php
+</pre>
+
+      <p>Implementacja: <a href="http://symfony.com/doc/current/components/class_loader.html">ClassLoader</a> (komponent Symfony)</p>
+      </article>
+
+      <article>
+        <h3><a href="http://packagist.org/">Packagist</a></h3>
+
+        <ul class="build">
+          <li>Główne repozytorium dla Composera</li>
+          <li>... czyli źródło pakietów</li>
+          <li>Każdy może utworzyć tam swój projekt</li>
+          <li>Aby korzystać z Composera pakiet niekoniecznie musi być utworzony w Packagist, ale znacznie to ułatwia korzystanie z niego</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3><a href="http://packagist.org/">Packagist</a></h3>
+
+        <p><img class="centered" style="height: 500px" src="images/packagist.png"></p>
+      </article>
+
+      <article>
+        <h3><a href="http://packagist.org/">Packagist</a></h3>
+
+        <p><img class="centered" style="height: 500px" src="images/packagist-symfony.png"></p>
+      </article>
+
+      <article>
+        <h3>Typy repozytoriów</h3>
+
+        <ul class="build">
+          <li>Composer</li>
+          <li>VCS</li>
+          <li>PEAR</li>
+          <li>Package</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3><a href="https://github.com/composer/satis">Satis</a></h3>
+
+        <ul class="build">
+          <li>Minimalistyczny odpowiednik Packagista</li>
+          <li>Instalacja: <pre>$ composer.phar create-project composer/satis</pre></li>
+          <li>Użyteczny dla tworzenia prywatnych repozytoriów (zamknięty kod, firmowe repozytoria)</li>
+        </ul>
+      </article>
+
+      <article>
+        <h1>Pytania</h1>
+      </article>
+
+      <article>
+        <h1>Dziękuję za uwagę</h1>
+      </article>
+
+    </section>
+
+  </body>
+</html>
