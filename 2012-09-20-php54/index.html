@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>PHP 5.4</title>
+
+    <meta charset='utf-8'>
+    <script
+      src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+
+    <style>
+      dl, dd {
+        padding: 10px;
+      }
+
+      .warn {
+        color: red;
+      }
+    </style>
+  </head>
+
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular'>
+
+      <article>
+        <h1>
+          PHP 5.4
+        </h1>
+        <p>
+          Michał Pipa
+          <br/>
+          20 września 2012
+        </p>
+      </article>
+
+      <article>
+        <h3>O mnie</h3>
+
+        <ul class="build">
+          <li>Jestem programistą PHP</li>
+          <li>Pracuję w firmie <a href="http://www.xsolve.pl/">XSolve</a></li>
+          <li>Od 5 lat używam frameworka <a href="http://symfony.com/">Symfony</a></li>
+          <li><a href="https://github.com/michal-pipa">https://github.com/michal-pipa</a></li>
+          <li><a href="https://connect.sensiolabs.com/profile/michal.pipa">https://connect.sensiolabs.com/profile/michal.pipa</a></li>
+          <li><a href="http://spug.pl/">Silesian PHP User Group</a></li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Historia najnowsza języka PHP</h3>
+
+        <dl class="build">
+          <dt>30 czerwca 2009</dt>
+            <dd>Wydanie 5.3.0</dd>
+          <dt>16 grudnia 2010</dt>
+            <dd>Wydanie 5.2.16 (ostatnie wydanie 5.2)</dd>
+          <dt>1 marca 2012</dt>
+            <dd>Wydanie 5.4.0</dd>
+          <dt>13 września 2012</dt>
+            <dd>Wydanie 5.4.7</dd>
+        </dl>
+      </article>
+
+      <article>
+        <h3>Co zostało usunięte?</h3>
+
+        <ul class="build">
+          <li>Safe mode</li>
+          <li>Magic quotes</li>
+          <li>register_globals</li>
+          <li>Break i continue nie przyjmują już wyrażeń jako argumentu (np.: <code>break 1 + foo() * $bar;</code>)</li>
+          <li>Usunięta opcja ini <em>y2k_compliance</em></li>
+        </ul>
+      </article>
+
+      <article>
+        <h1>Co zostało dodane?</h1>
+      </article>
+
+      <article>
+        <h3>Array dereferencing</h3>
+
+<pre>&lt;?php
+
+function foo() {
+  return array(1, 2, 3);
+}
+
+echo foo()[2];</pre>
+
+<pre>&lt;?php
+
+$foo = function() {
+  return array(1, 2, 3);
+};
+
+echo $foo()[0];</pre>
+
+      </article>
+
+      <article>
+        <h3>Dostęp do składowych klasy przy tworzeniu obiektu</h3>
+
+        <pre>(new Foo)-&gt;bar()</pre>
+        <pre>(new Foo)-&gt;bar</pre>
+      </article>
+
+      <article>
+        <h3>Short array syntax</h3>
+
+<pre>$array = [1, 2, 3, 4];
+
+$array = array(
+    "foo" =&gt; "bar",
+    "bar" =&gt; "foo",
+);
+
+$array = [
+    "foo" =&gt; "bar",
+    "bar" =&gt; "foo",
+];</pre>
+      </article>
+
+      <article>
+        <h3><a href="http://php.net/traits">Traits</a></h3>
+
+        <h1>Traity umożliwiają ponowne użycie kodu w językach z dziedziczeniem jednobazowym.</h1>
+      </article>
+
+      <article>
+        <h3><a href="http://php.net/traits">Traits</a></h3>
+
+<pre>trait ezcReflectionReturnInfo {
+    function getReturnType() { /*1*/ }
+    function getReturnDescription() { /*2*/ }
+}
+
+class ezcReflectionMethod extends ReflectionMethod {
+    use ezcReflectionReturnInfo;
+    /* ... */
+}
+
+class ezcReflectionFunction extends ReflectionFunction {
+    use ezcReflectionReturnInfo;
+    /* ... */
+}</pre>
+      </article>
+
+      <article>
+        <h3><a href="http://php.net/traits">Traits</a></h3>
+<pre>class Base {
+    public function sayHello() {
+        echo 'Hello ';
+    }
+}
+
+trait SayWorld {
+    public function sayHello() {
+        parent::sayHello();
+        echo 'World!';
+    }
+}
+
+class MyHelloWorld extends Base {
+    use SayWorld;
+}</pre>
+      </article>
+
+      <article>
+        <h3><a href="http://php.net/traits">Traits</a></h3>
+<pre>trait Hello {
+    public function sayHello() {
+        echo 'Hello ';
+    }
+}
+
+trait World {
+    public function sayWorld() {
+        echo 'World';
+    }
+}
+
+class MyHelloWorld {
+    use Hello, World;
+    public function sayExclamationMark() {
+        echo '!';
+    }
+}</pre>
+      </article>
+
+      <article>
+        <h3><a href="http://php.net/traits">Traits</a></h3>
+<pre>trait A {
+    public function smallTalk() {
+        echo 'a';
+    }
+    public function bigTalk() {
+        echo 'A';
+    }
+}
+
+trait B {
+    public function smallTalk() {
+        echo 'b';
+    }
+    public function bigTalk() {
+        echo 'B';
+    }
+}</pre>
+      </article>
+
+      <article>
+        <h3><a href="http://php.net/traits">Traits</a></h3>
+<pre>class Talker {
+    use A, B {
+        B::smallTalk insteadof A;
+        A::bigTalk insteadof B;
+    }
+}
+
+class Aliased_Talker {
+    use A, B {
+        B::smallTalk insteadof A;
+        A::bigTalk insteadof B;
+        B::bigTalk as talk;
+    }
+}</pre>
+      </article>
+
+      <article>
+        <h3><a href="http://php.net/manual/en/features.commandline.webserver.php">Wbudowany serwer</a></h3>
+
+<pre>$ php -S localhost:8000</pre>
+<pre>PHP 5.4.8-dev Development Server started at Thu Sep 20 04:13:04 2012
+Listening on http://localhost:8000
+Document root is /tmp
+Press Ctrl-C to quit.</pre>
+
+      </article>
+
+      <article>
+        <h3><a href="http://php.net/manual/en/features.commandline.webserver.php">Wbudowany serwer</a></h3>
+
+<pre>$ php -S localhost:8000 router.php</pre>
+
+<code>router.php</code>
+<pre>
+&lt;?php
+if (preg_match('/\.(?:png|jpg|gif)$/', $_SERVER["REQUEST_URI"])) {
+    return false;
+} else {
+    echo "&lt;p&gt;Welcome to PHP&lt;/p&gt;";
+}
+?&gt;
+</pre>
+
+      </article>
+
+      <article>
+        <h3><a href="http://php.net/manual/en/features.commandline.webserver.php">Wbudowany serwer</a></h3>
+
+        <p class="warn">Nie należy korzystać z tego serwera w środowisku produkcyjnym!</p>
+      </article>
+
+      <article>
+        <h3>Pozostałe nowości</h3>
+
+        <ul class="build">
+          <li>Binarny format dla liczb <pre>0b10101</pre></li>
+          <li>Callable typehint
+<pre>public function test_callable(callable $callback, $data) {
+  call_user_func($callback, $data);
+}</pre>
+          </li>
+          <li>&lt;?= jest zawsze dostępne niezależnie od ustawienia <em>short_open_tag</em></li>
+        </ul>
+
+      </article>
+
+      <article>
+        <h3>Pozostałe nowości</h3>
+
+        <ul class="build">
+          <li>Stała E_ALL zawiera E_STRICT</li>
+          <li>Niejawna konwersja tablicy do stringa generuje notice</li>
+          <li>Domyślna wartość <em>default_charset</em> została zmieniona z ISO-8859-1 na UTF-8</li>
+          <li>Rozszerzenie Session <a href="http://docs.php.net/manual/en/session.upload-progress.php">potrafi śledzić postęp uploadu plików</a></li>
+        </ul>
+
+      </article>
+
+      <article>
+        <h3>Poprawiona wydajność</h3>
+
+        <ul class="build">
+          <li>PHP 5.4 ogólnie jest szybsze od starszych wersji (<a href="http://www.lornajane.net/posts/2012/php-5-4-benchmarks">PHP 5.4 Benchmarks</a>)</li>
+          <li>Zużycie pamięci dla zestawu testów Symfony (<a href="http://travis-ci.org/#!/symfony/symfony/builds/2500675">http://travis-ci.org/#!/symfony/symfony/builds/2500675</a>):
+            <ul>
+              <li>wersja 5.3.3: 283Mb</li>
+              <li>wersja 5.4: 138Mb</li>
+            </ul>
+          </li>
+        </ul>
+      </article>
+
+      <article>
+        <h1>Zmiany w procesie wydawania PHP</h1>
+      </article>
+
+      <article>
+        <h3>Migracja na Gita</h3>
+
+        <ul class="build">
+          <li>Adres repozytorium: <a href="http://git.php.net/repository/php-src.git">http://git.php.net/repository/php-src.git</a></li>
+          <li>Mirror na GitHubie: <a href="https://github.com/php/php-src">https://github.com/php/php-src</a></li>
+          <li>Można zgłaszać pull requesty, ale przyjmowane są poza GitHubem</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Proces tworzenia nowych wydań</h3>
+
+        <ul class="build">
+          <li>Wydania co miesiąc, dwa tygodnie przed wydaniem tworzony jest branch</li>
+          <li><a href="https://wiki.php.net/rfc">Request for Comments</a></li>
+          <li>Brak niekompatybilnych zmian w 5.x</li>
+        </ul>
+      </article>
+
+      <article>
+        <h1>Pytania</h1>
+      </article>
+
+      <article>
+        <h1>Dziękuję za uwagę</h1>
+      </article>
+
+    </section>
+
+  </body>
+</html>
