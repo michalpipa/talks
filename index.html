@@ -10,7 +10,7 @@
     <style>
     </style>
   </head>
-  
+
 
   <body style='display: none'>
 
@@ -26,7 +26,7 @@
         <p>
           Michał Pipa
           <br>
-          21 czerwca 2012
+          28 września 2012
         </p>
       </article>
 
@@ -35,7 +35,6 @@
 
         <ul class="build">
           <li>Jestem programistą PHP</li>
-          <li>Pracuję w firmie <a href="http://www.xsolve.pl/">XSolve</a></li>
           <li>Od 5 lat używam frameworka <a href="http://symfony.com/">Symfony</a></li>
           <li><a href="https://github.com/michal-pipa">https://github.com/michal-pipa</a></li>
           <li><a href="https://connect.sensiolabs.com/profile/michal.pipa">https://connect.sensiolabs.com/profile/michal.pipa</a></li>
@@ -52,6 +51,7 @@
           <li>Kto słyszał o <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">PSR-0</a>?</li>
           <li>Kto używa systemu kontroli wersji?</li>
           <li>Kto używa Gita?</li>
+          <li>Kto używa Composera?</li>
         </ul>
       </article>
 
@@ -60,7 +60,7 @@
 
         <ul class="build">
           <li>Większość projektów używa zewnętrznych bibliotek. Te biblioteki z kolei często wprowadzają kolejne zależności.</li>
-          <li>Na przykład Symfony Standard Edition ma 11 zależności, które wprowadzają kolejne zależności.</li>
+          <li>Na przykład Symfony Standard Edition ma 12 zależności, które wprowadzają kolejne zależności.</li>
           <li>Czy wspominałem już Zend Framework (<a href="https://github.com/symfony/symfony/issues/3973">RFC: Integrate Zend\Filter into Form</a>)?</li>
           <li>Problem robi się coraz większy, gdy musimy utrzymywać wiele różnych projektów.</li>
         </ul>
@@ -112,7 +112,7 @@
           <li>Łatwy w użyciu</li>
           <li>Elastyczny</li>
           <li>Wprowadza dobre praktyki: <a href="https://github.com/php-fig/fig-standards">PSR</a>, <a href="http://spdx.org/">SPDX</a>, <a href="http://semver.org/">semver</a></li>
-          <li>W tej chwili jest w wersji alpha, stabilne wydanie jest planowane na koniec lata</li>
+          <li>W tej chwili jest w wersji alpha, stabilne wydanie było planowane na koniec lata</li>
         </ul>
       </article>
 
@@ -140,7 +140,7 @@
 $ sudo mv composer.phar /usr/local/bin/composer</pre>
 
         <h4>Aktualizacja</h4>
-<pre>$ composer.phar self-update</pre>
+<pre>$ composer self-update</pre>
       </article>
 
       <article>
@@ -154,9 +154,10 @@ $ sudo mv composer.phar /usr/local/bin/composer</pre>
     }
 }</pre>
 
-<pre>$ composer.phar install</pre>
+<pre>$ composer install</pre>
 
-<pre>Installing dependencies
+<pre>Loading composer repositories with package information
+Installing dependencies
   - Installing monolog/monolog (1.0.2)
     Downloading: 100%
 
@@ -169,7 +170,7 @@ Generating autoload files</pre>
 
 <pre>$ git clone git://github.com/symfony/symfony-standard.git
 $ cd symfony-standard
-$ composer.phar install</pre>
+$ composer install</pre>
 <pre>Installing dependencies from lock file
   - Installing doctrine/common (2.2.2)
     Downloading: 100%
@@ -305,9 +306,16 @@ $log-&gt;addWarning('Foo');</pre>
 
         <ul class="build">
           <li>Minimalistyczny odpowiednik Packagista</li>
-          <li>Instalacja: <pre>$ composer.phar create-project composer/satis</pre></li>
+          <li>Instalacja: <pre>$ composer create-project composer/satis</pre></li>
           <li>Użyteczny dla tworzenia prywatnych repozytoriów (zamknięty kod, firmowe repozytoria)</li>
         </ul>
+      </article>
+
+      <article>
+        <h3>Proszę o komentarze</h3>
+
+        <p><a href="https://joind.in/7183"><img src="images/joindin-phpcon2012.png" alt="QRCode" class="centered"/></a></p>
+        <p><a href="https://joind.in/7183">https://joind.in/7183</a></p>
       </article>
 
       <article>
