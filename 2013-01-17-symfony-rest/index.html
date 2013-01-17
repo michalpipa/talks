@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset='utf-8'>
+
+    <title>RESTful web services with Symfony2</title>
+
+    <script src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+
+    <style>
+        .centered {
+            text-align: center
+        }
+    </style>
+  </head>
+
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular'>
+
+      <article>
+        <h1>RESTful web services with Symfony2</h1>
+
+        <p>
+          Michał Pipa
+          <br>
+          17 January 2013
+        </p>
+      </article>
+
+      <article>
+        <h3>About me</h3>
+
+        <ul>
+          <li>I'm PHP software developer</li>
+          <li>I work for <a href="http://iteo.com.pl/">Iteo</a></li>
+          <li><a href="http://symfony.com/">Symfony2</a> is my favorite web framework</li>
+          <li><a href="https://github.com/michal-pipa">GitHub</a></li>
+          <li><a href="https://connect.sensiolabs.com/profile/michal.pipa">SensioLabs Connect</a></li>
+          <li><a href="http://spug.pl/">Silesian PHP User Group</a></li>
+          <li><a href="http://symfonylab.pl/">Polish Symfony Community</a></li>
+        </ul>
+      </article>
+
+      <article class="smaller">
+        <h3><a href="http://symfony.com/">Symfony2</a></h3>
+
+        <q>Symfony2 is a reusable set of standalone, decoupled, and cohesive PHP
+        components that solve common web development problems. Then, based on
+        these components, Symfony2 is also a full-stack web framework.</q>
+
+        <div class="author" style="font-size: 25px;">
+          Fabien Potencier, <a href="http://fabien.potencier.org/article/49/what-is-symfony2">What is Symfony2?</a>
+        </div>
+      </article>
+
+      <article>
+        <h3>REST with Symfony2</h3>
+        
+        <p>Routing configuration</p>
+
+<pre>contact:
+    pattern:  /contact
+    defaults: { _controller: AcmeDemoBundle:Main:contact }
+    requirements:
+        _method:  GET
+
+contact_process:
+    pattern:  /contact
+    defaults: { _controller: AcmeDemoBundle:Main:contactProcess }
+    requirements:
+        _method:  POST</pre>
+      </article>
+
+      <article>
+        <h3>REST with Symfony2</h3>
+        
+        <p>HTTP method overriding</p>
+
+<pre>&lt;form action="{{ path('blog_update', {'slug': blog.slug}) }}"
+        method="post"&gt;
+    &lt;input type="hidden" name="_method" value="PUT" /&gt;
+    {{ form_widget(form) }}
+    &lt;input type="submit" value="Update" /&gt;
+&lt;/form&gt;</pre>
+
+<pre>&lt;form action="{{ path('blog_delete', {'slug': blog.slug}) }}"
+        method="post"&gt;
+    &lt;input type="hidden" name="_method" value="DELETE" /&gt;
+    {{ form_widget(form) }}
+    &lt;input type="submit" value="Delete" /&gt;
+&lt;/form&gt;</pre>
+      </article>
+
+      <article>
+        <h3>REST with Symfony2</h3>
+
+        <h1 class="centered">JsonResponse</h1>
+      </article>
+
+      <article>
+        <h3>REST with Symfony2</h3>
+
+        <h1 class="centered"><a href="http://symfony.com/doc/current/components/serializer.html">Serializer</a></h1>
+      </article>
+
+      <article>
+        <h1 class="centered"><a href="https://github.com/FriendsOfSymfony/FOSRestBundle">FOSRestBundle</a></h1>
+      </article>
+
+      <article>
+        <h3>FOSRestBundle routing configuration</h3>
+
+<pre>users:
+    type:     rest
+    resource: Acme\HelloBundle\Controller\UsersController</pre>
+      </article>
+
+      <article>
+        <h3>FOSRestBundle</h3>
+
+<pre>&lt;?php
+
+class UsersController
+{
+    public function getUsersAction()
+    {} // "get_users"     [GET] /users
+
+    public function postUsersAction()
+    {} // "post_users"    [POST] /users
+
+    public function getUserAction($slug)
+    {} // "get_user"      [GET] /users/{slug}
+
+    public function putUserAction($slug)
+    {} // "put_user"      [PUT] /users/{slug}
+
+    public function deleteUserAction($slug)
+    {} // "delete_user"   [DELETE] /users/{slug}
+}</pre>
+      </article>
+
+      <article>
+        <h3>FOSRestBundle custom actions</h3>
+
+<pre>&lt;?php
+
+class UsersController
+{
+    public function banUserAction($slug)
+    {} // "ban_user"      [PATCH] /users/{slug}/ban
+}</pre>
+      </article>
+
+      <article>
+        <h3>HATEOAS</h3>
+          <p>
+            <strong>H</strong>ypermedia<br />
+            <strong>a</strong>s<br />
+            <strong>t</strong>he<br />
+            <strong>E</strong>ngine<br />
+            <strong>o</strong>f<br />
+            <strong>A</strong>pplication<br />
+            <strong>S</strong>tate
+          </p>
+      </article>
+
+      <article>
+        <h3>FOSRestBundle and HATEOAS</h3>
+
+<pre>&lt;?php
+
+class UsersController
+{
+    public function newUsersAction()
+    {} // "new_users"     [GET] /users/new
+
+    public function editUserAction($slug)
+    {} // "edit_user"     [GET] /users/{slug}/edit
+
+    public function deleteUserAction($slug)
+    {} // "delete_user"   [DELETE] /users/{slug}
+}</pre>
+      </article>
+
+      <article>
+        <h3>FOSRestBundle sub-resource actions</h3>
+
+<pre>&lt;?php
+
+class UsersController
+{
+    public function getUserCommentsAction($slug)
+    {} // "get_user_comments"    [GET] /users/{slug}/comments
+
+    public function getUserCommentAction($slug, $id)
+    {} // "get_user_comment"     [GET] /users/{slug}/comments/{id}
+
+    public function postUserCommentsAction($slug)
+    {} // "post_user_comments"   [POST] /users/{slug}/comments
+
+    public function putUserCommentAction($slug, $id)
+    {} // "put_user_comment"     [PUT] /users/{slug}/comments/{id}
+}</pre>
+      </article>
+
+      <article>
+        <h3>FOSRestBundle example controller</h3>
+
+<pre>&lt;?php
+
+use FOS\RestBundle\Controller\FOSRestController;
+
+class UsersController extends FOSRestController
+{
+    public function getUsersAction()
+    {
+        $data = // get data, in this case list of users.
+        $view = $this-&gt;view($data, 200)
+            -&gt;setTemplate('AcmeHelloBundle:Users:getUsers.html.twig')
+            -&gt;setTemplateVar('users')
+        ;
+
+        return $this-&gt;handleView($view);
+    }
+}</pre>
+      </article>
+
+      <article>
+        <h1 class="centered"><a href="http://jmsyst.com/bundles/JMSSerializerBundle">JMSSerializerBundle</a></h1>
+      </article>
+
+      <article>
+        <h3>JMSSerializerBundle</h3>
+
+<pre>$serializer = $container-&gt;get('jms_serializer');
+$serializer-&gt;serialize($data, $format);
+$data = $serializer-&gt;deserialize($inputStr, $typeName, $format);</pre>
+      </article>
+
+      <article>
+        <h3>JMSSerializerBundle</h3>
+
+<pre>&lt;?php
+
+namespace MyNamespace;
+
+use JMS\Serializer\Annotation\Type;
+
+class BlogPost
+{
+    /**
+     * @Type("ArrayCollection&lt;MyNamespace\Comment&gt;")
+     */
+    private $comments;
+
+    /**
+     * @Type("string")
+     */
+    private $title;
+}</pre>
+      </article>
+
+      <article>
+        <h3>JMSSerializerBundle</h3>
+<ul>
+<li>@Exclude @Expose @ExclusionPolicy</li>
+<li>@SerializedName</li>
+<li>@Since @Until</li>
+<li>@Groups</li>
+<li>@PreSerialize @PostSerialize @PostDeserialize</li>
+<li>@Type</li>
+</ul>
+      </article>
+
+      <article>
+        <h1 class="centered"><a href="https://github.com/FriendsOfSymfony/FOSOAuthServerBundle">FOSOAuthServerBundle</a></h1>
+      </article>
+
+      <article>
+        <h1 class="centered"><a href="https://github.com/nelmio/NelmioApiDocBundle">NelmioApiDocBundle</a></h1>
+      </article>
+
+      <article>
+        <h1 class="centered"><a href="http://silex.sensiolabs.org/">Silex</a></h1>
+      </article>
+
+      <article>
+        <h3>Silex</h3>
+
+<pre>&lt;?php
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+$app-&gt;get('/resource', function (Request $request) {
+    // ...
+    return new Response('...', 200);
+});
+
+$app-&gt;post('/resource', function (Request $request) {
+    // ...
+    return new Response('...', 201);
+});</pre>
+      </article>
+
+      <article>
+        <h1 class="centered"><a href="http://curl.haxx.se/">cURL</a></h1>
+
+        <p>curl is a command line tool for transferring data with URL syntax</p>
+      </article>
+
+      <article>
+        <h1 class="centered"><a href="http://stedolan.github.com/jq/">jq</a></h1>
+
+        <p>jq is a lightweight and flexible command-line JSON processor</p>
+      </article>
+
+      <article>
+        <h1 class="centered"><a href="https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm">Postman</a></h1>
+
+        <p>Postman helps you be more efficient while working with APIs</p>
+      </article>
+
+      <article>
+        <p class="centered"><img src="images/RESTful_Web_Services.png" alt="RESTful_Web_Services"></p>
+      </article>
+
+      <article>
+        <p class="centered"><img src="images/RESTful_Web_Services_Cookbook.png" alt="RESTful_Web_Services_Cookbook"></p>
+      </article>
+
+      <article>
+        <p class="centered"><img src="images/REST_in_Practice.png" alt="REST_in_Practice"></p>
+      </article>
+
+      <article>
+        <h1 class="centered"><a href="http://www.youtube.com/watch?v=XzgCzjMdvRE">Symfony Live Paris 2012 - David Zuelke: Designing HTTP Interfaces And RESTful Web Services</a></h1>
+      </article>
+
+      <article>
+        <h1>Questions</h1>
+      </article>
+
+      <article>
+        <h1>Thank you</h1>
+      </article>
+    </section>
+  </body>
+</html>
