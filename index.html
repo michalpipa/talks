@@ -1,380 +1,503 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+        <title>Introduction to OAuth2</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+        <meta name="description" content="Introduction to OAuth2">
+        <meta name="author" content="Michał Pipa">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/night.css" id="theme">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-		<script>
-			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-		</script>
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+        <style>
+            pre {
+                font-size: 0.7em !important;
+            }
+        </style>
+    </head>
 
-	<body>
+    <body>
 
-		<div class="reveal">
+        <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h1>Reveal.js</h1>
-					<h3>HTML Presentations Made Easy</h3>
-					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
-					</p>
-				</section>
+            <div class="slides">
 
-				<section>
-					<h2>Heads Up</h2>
-					<p>
-						reveal.js is a framework for easily creating beautiful presentations using HTML. You'll need a browser with
-						support for CSS 3D transforms to see it in its full glory.
-					</p>
+                <section>
+                    <h1>Introduction to OAuth 2.0</h1>
 
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
+                    <p>Michał Pipa</p>
+                    <p>PHPCon Poland, Szczyrk, 27 October 2013</p>
+                </section>
 
-				<!-- Example of nested vertical slides -->
-				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>
-							Slides can be nested inside of other slides,
-							try pressing <a href="#" class="navigate-down">down</a>.
-						</p>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Press down or up to navigate.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>Cornify</p>
-						<a class="test" href="http://cornify.com">
-							<img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 3</h2>
-						<p>That's it, time to go back up.</p>
-						<a href="#/2" class="image">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
-						</a>
-					</section>
-				</section>
+                <section>
+                    <h2>About me</h2>
 
-				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? No problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slid.es" target="_blank">http://slid.es</a>.
-					</p>
-				</section>
+                    <ul>
+                        <li>Michał Pipa <span class="fragment roll-in">(<a href="">@michalpipa</a>)</span></li>
+                        <li>Software developer and trainer at <a href="http://iteo.co/">Iteo</a></li>
+                        <li>Zend Certified Engineer</li>
+                        <li>Free software enthusiast (<a href="http://symfony.com/">Symfony</a>)</li>
+                        <li><a href="http://spug.pl/">Silesian PHP User Group</a></li>
+                        <li><a href="http://symfonylab.pl/">Polish Symfony Community</a> (#symfony-pl)</li>
+                    </ul>
+                </section>
 
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
-				</section>
+                <section>
+                    <h2>This talk is about securing web services</h2>
+                </section>
 
-				<section>
-					<h2>Works in Mobile Safari</h2>
-					<p>
-						Try it out! You can swipe through the slides and pinch your way to the overview.
-					</p>
-				</section>
+                <section>
+                    <h2>OAuth 2.0</h2>
 
-				<section>
-					<h2>Marvelous Unordered List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
+                    <p>Authorization framework</p>
+                </section>
 
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
+                <section>
+                    <h2><a href="http://tools.ietf.org/html/rfc6749">RFC 6749</a></h2>
 
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
+                    <p>October 2012</p>
+                </section>
 
-						For those of you who like that sort of thing. Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
+                <section>
+                    <h2>The old way</h2>
 
-						```
-						<section data-markdown>
-						  ## Markdown support
+                    <p>Authorization: Basic dXNlcjpwYXNzd29yZA==</p>
+                </section>
 
-						  For those of you who like that sort of thing.
-						  Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
-				</section>
+                <section>
+                    <h2>Problems with passwords</h2>
 
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=cube#/transitions">Cube</a> -
-						<a href="?transition=page#/transitions">Page</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a> -
-						<a href="?transition=linear#/transitions">Linear</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?#/transitions">Default</a>
-					</p>
-				</section>
+                    <ul>
+                        <li class="fragment">Third-party apps are required to store passwords for future use (plain text)</li>
+                        <li class="fragment">Servers are required to support password authentication</li>
+                        <li class="fragment">Third-party apps have full access to resource owner's resources</li>
+                        <li class="fragment">To revoke access resource owner must change password</li>
+                        <li class="fragment">Compromise of any third-party application results in compromise of the end-user's password</li>
+                    </ul>
+                </section>
 
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						Reveal.js comes with a few themes built in: <br>
-						<a href="?theme=sky#/themes">Sky</a> -
-						<a href="?theme=beige#/themes">Beige</a> -
-						<a href="?theme=simple#/themes">Simple</a> -
-						<a href="?theme=serif#/themes">Serif</a> -
-						<a href="?theme=night#/themes">Night</a> -
-						<a href="?#/themes">Default</a>
-					</p>
-					<p>
-						<small>
-							* Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the <code>&lt;head&gt;</code> using a <code>&lt;link&gt;</code>.
-						</small>
-					</p>
-				</section>
+                <section>
+                    <h2>Solution: OAuth 2.0</h2>
 
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the background.
-					</p>
-				</section>
+                    <ul>
+                        <li class="fragment">Uses access tokens</li>
+                        <li class="fragment">Introduces authorization layer</li>
+                        <li class="fragment">Separates role of client from resource owner</li>
+                        <li class="fragment">Uses scopes to restrict access</li>
+                        <li class="fragment">Resource owner can revoke access form one specific app</li>
+                    </ul>
+                </section>
 
-				<section data-state="customevent">
-					<h2>Custom Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
+                <section>
+                    <h2>Who uses OAuth 2.0?</h2>
 
-				<section>
-					<section data-background="#007777">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#007777"</code> on a slide to change the full page background to the given color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code>&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Repeated Image Backgrounds</h2>
-						<pre><code style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-				</section>
+                    <ul>
+                        <li class="fragment">Facebook</li>
+                        <li class="fragment">GitHub</li>
+                        <li class="fragment">LinkedIn</li>
+                        <li class="fragment">Twitter</li>
+                        <li class="fragment">and many more...</li>
+                    </ul>
+                </section>
 
-				<section data-transition="linear" data-background="#4d7e65" data-background-transition="slide">
-					<h2>Background Transitions</h2>
-					<p>
-						Pass reveal.js the <code>backgroundTransition: 'slide'</code> config argument to make backgrounds slide rather than fade.
-					</p>
-				</section>
+                <section>
+                    <section>
+                        <h2>Roles</h2>
+                    </section>
 
-				<section data-transition="linear" data-background="#8c4738" data-background-transition="slide">
-					<h2>Background Transition Override</h2>
-					<p>
-						You can override background transitions per slide by using <code>data-background-transition="slide"</code>.
-					</p>
-				</section>
+                    <section>
+                        <h2>Client</h2>
 
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
+                        <p>Third-party app which is accessing resource server data</p>
+                    </section>
 
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
+                    <section>
+                        <h2>Resource owner</h2>
 
-    var nodes = document.querySelectorAll( selector );
+                        <p>The person who is giving third-party app access to his/her resources</p>
+                    </section>
 
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
+                    <section>
+                        <h2>Resource server</h2>
 
-      if( !node.className ) ) {
-        node.className += ' roll';
-      }
-    };
-  }
-}
-					</code></pre>
-					<p>Courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
+                        <p>The server hosting protected resources (API)</p>
+                    </section>
 
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
+                    <section>
+                        <h2>Authorization server</h2>
 
-				<section>
-					<section>
-						<h2>Fragmented Views</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<ol>
-							<li class="fragment"><code>any type</code></li>
-							<li class="fragment"><em>of view</em></li>
-							<li class="fragment"><strong>fragments</strong></li>
-						</ol>
+                        <p>The server issuing access tokens to the client (often the same as resource server)</p>
+                    </section>
 
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's a few styles of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment roll-in">roll-in</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-green">highlight-green</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-					</section>
-				</section>
+                </section>
 
-				<section>
-					<h2>Spectacular image!</h2>
-					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
-						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
-					</a>
-				</section>
+                <section>
+                    <h2>Client types</h2>
 
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, below is an example that's been uploaded to SlideShare.</p>
-					<iframe id="slideshare" src="http://www.slideshare.net/slideshow/embed_code/13872948" width="455" height="356" style="margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
-					<script>
-						document.getElementById('slideshare').attributeName = 'allowfullscreen';
-					</script>
-				</section>
+                    <ul>
+                        <li>confidential</li>
+                        <li>public</li>
+                    </ul>
+                </section>
 
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press b or period on your keyboard to enter the 'paused' mode. This mode is helpful when you want to take distracting slides off the screen
-						during a presentation.
-					</p>
-				</section>
+                <section>
+                    <h2>Client types</h2>
 
-				<section>
-					<h2>Stellar Links</h2>
-					<ul>
-						<li><a href="http://slid.es">Try the online editor</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js">Source code on GitHub</a></li>
-						<li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
-					</ul>
-				</section>
+                    <ul>
+                        <li>web application</li>
+                        <li>user-agent-based application</li>
+                        <li>native application</li>
+                    </ul>
+                </section>
 
-				<section>
-					<h1>THE END</h1>
-					<h3>BY Hakim El Hattab / hakim.se</h3>
-				</section>
+                <section>
+                    <h2>Client authentication</h2>
 
-			</div>
+                    <ul>
+                        <li>client_id</li>
+                        <li>client_secret</li>
+                    </ul>
+                </section>
 
-		</div>
+                <section>
+                    <h2>Access token scope</h2>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+                    <p>Allow the client to specify the scope of the access request</p>
+                </section>
 
-		<script>
+                <section>
+                    <p><a href="http://tools.ietf.org/html/rfc6749#section-1.2">Protocol Flow</a></p>
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+                    <pre>
+         +--------+                               +---------------+
+         |        |------ Authorization Request -&gt;|   Resource    |
+         |        |                               |     Owner     |
+         |        |&lt;------ Authorization Grant ---|               |
+         |        |                               +---------------+
+         |        |
+         |        |                               +---------------+
+         |        |------- Authorization Grant --&gt;| Authorization |
+         | Client |                               |     Server    |
+         |        |&lt;--------- Access Token -------|               |
+         |        |                               +---------------+
+         |        |
+         |        |                               +---------------+
+         |        |---------- Access Token ------&gt;|    Resource   |
+         |        |                               |     Server    |
+         |        |&lt;------- Protected Resource ---|               |
+         +--------+                               +---------------+
+                    </pre>
+                </section>
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+                <section>
+                    <h2>Authorization grant</h2>
 
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
+                    <p>Credential representing the resource owner's authorization</p>
+                </section>
 
-		</script>
+                <section>
+                    <h2>Authorization code</h2>
 
-	</body>
+                    <p>The client directs the resource owner to an authorization server, which directs
+                       back to the client with the authorization code</p>
+                </section>
+
+                <section>
+                    <h2>Authorization grant request</h2>
+
+                    <pre>
+GET /authorize?response_type=code&amp;client_id=s6BhdRkqt3&amp;state=xyz
+    &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Authorization grant response</h2>
+
+                    <pre>
+HTTP/1.1 302 Found
+Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA
+          &amp;state=xyz
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Access token request</h2>
+
+                    <pre>
+        POST /token HTTP/1.1
+        Host: server.example.com
+        Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+        Content-Type: application/x-www-form-urlencoded
+
+        grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
+        &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Access token response</h2>
+
+                    <pre>
+        HTTP/1.1 200 OK
+        Content-Type: application/json;charset=UTF-8
+        Cache-Control: no-store
+        Pragma: no-cache
+
+        {
+          "access_token":"2YotnFZFEjr1zCsicMWpAA",
+          "token_type":"example",
+          "expires_in":3600,
+          "refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",
+          "example_parameter":"example_value"
+        }
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Implicit</h2>
+
+                    <p>The client is issued access token directly</p>
+                    <p class="fragment">Simplified flow, used in JavaScript</p>
+                </section>
+
+                <section>
+                    <h2>Implicit authorization request</h2>
+
+                    <pre>
+GET /authorize?response_type=token&amp;client_id=s6BhdRkqt3&amp;state=xyz
+    &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1
+Host: server.example.com
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Implicit authorization response</h2>
+
+                    <pre>
+HTTP/1.1 302 Found
+Location: http://example.com/cb#access_token=2YotnFZFEjr1zCsicMWpAA
+          &amp;state=xyz&amp;token_type=example&amp;expires_in=3600
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Resource owner password credentials</h2>
+
+                    <p>The resource owner credentials are used directly to obtain an access token</p>
+                </section>
+
+                <section>
+                    <h2>Password credentials request</h2>
+
+                    <pre>
+     POST /token HTTP/1.1
+     Host: server.example.com
+     Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+     Content-Type: application/x-www-form-urlencoded
+
+     grant_type=password&amp;username=johndoe&amp;password=A3ddj3w
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Client credentials</h2>
+
+                    <p>The client credentials are used directly to obtain an access token</p>
+                    <p class="fragment">Used when the client is acting on its own behalf</p>
+                </section>
+
+                <section>
+                    <h2>Client credentials request</h2>
+
+                    <pre>
+         POST /token HTTP/1.1
+         Host: server.example.com
+         Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+         Content-Type: application/x-www-form-urlencoded
+
+         grant_type=client_credentials
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Access token</h2>
+
+                    <ul>
+                        <li class="fragment">Credentials used to access protected resources</li>
+                        <li class="fragment">String representing an authorization issued to the client</li>
+                        <li class="fragment">Represent specific scopes and durations of access</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p>$ curl -H "Authorization: Bearer MjAyNTYyNDE5YmI2MTk4OTE" https://api.example.com/resource</p>
+                </section>
+
+                <section>
+                    <h2>Refresh token</h2>
+
+                    <ul>
+                        <li class="fragment">Credentials used to obtain access tokens</li>
+                        <li class="fragment">Issued to the client by the authorization server</li>
+                        <li class="fragment">Credentials used to obtain a new access token when the current access expires</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p><a href="http://tools.ietf.org/html/rfc6749#section-1.5">Refreshing an Expired Access Token</a></p>
+
+                    <pre>
++--------+                                           +---------------+
+|        |------------ Authorization Grant ---------&gt;|               |
+|        |                                           |               |
+|        |&lt;--------------- Access Token -------------|               |
+|        |               &amp; Refresh Token             |               |
+|        |                                           |               |
+|        |                            +----------+   |               |
+|        |--------- Access Token ----&gt;|          |   |               |
+|        |                            |          |   |               |
+|        |&lt;----- Protected Resource --| Resource |   | Authorization |
+| Client |                            |  Server  |   |     Server    |
+|        |--------- Access Token ----&gt;|          |   |               |
+|        |                            |          |   |               |
+|        |&lt;----- Invalid Token Error -|          |   |               |
+|        |                            +----------+   |               |
+|        |                                           |               |
+|        |---------------- Refresh Token -----------&gt;|               |
+|        |                                           |               |
+|        |&lt;--------------- Access Token -------------|               |
++--------+           &amp; Optional Refresh Token        +---------------+
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Case study</h2>
+                </section>
+
+                <section>
+                    <h2>Case study: requirements</h2>
+
+                    <ul>
+                        <li>Mobile app (iOS and later Android)</li>
+                        <li>Third-party app integration</li>
+                        <li>REST API (PHP, Symfony, FOSOAuthServerBundle)</li>
+                        <li>All data fetched from API</li>
+                        <li>Users can register and login using Facebook and LinkedIn</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <pre>
+                +-------------+         +-----------+
+                |             |         |           |
+                |             |+-------&gt;| Facebook  |
+                |             |         |           |
+                |             |&lt;-------+| LinkedIn  |
+                |             |         |           |
+                |             |         |           |
+                | Mobile apps |         |           |
+                |             |         |           |
+                |             |         |           |
+                |             |         +-----------+
+                |    iOS      |
+                |             |         +-----------+
+                |   Android   |         |           |
+                |             |+-------&gt;|           |
+                |             |         | Backend   |
+                |             |&lt;-------+|           |
+                |             |         |           |
+                |             |         |           |
+                |             |         |           |
+                |             |         |           |
+                +-------------+         +-----------+
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Case study: solution</h2>
+
+                    <ul>
+                        <li>Custom authorization grant type</li>
+                        <li>Facebook/LinkedIn OAuth access token as authorization grant</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Summary</h2>
+
+                    <p>Don't reinvent the wheel!</p>
+                </section>
+
+                <section>
+                    <h2>Use OAuth 2.0</h2>
+                </section>
+
+                <section>
+                    <h2>Questions</h2>
+                </section>
+
+                <section>
+                    <h2>Please rate my talk</h2>
+
+                    <p><a href="https://joind.in/talk/view/9776">https://joind.in/talk/view/9776</a></p>
+                </section>
+
+                <section>
+                    <h2>Thank you!</h2>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
 </html>
