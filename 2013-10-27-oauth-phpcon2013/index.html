@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Introduction to OAuth2</title>
+
+        <meta name="description" content="Introduction to OAuth2">
+        <meta name="author" content="Michał Pipa">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/night.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+        <style>
+            pre {
+                font-size: 0.7em !important;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <div class="slides">
+
+                <section>
+                    <h1>Introduction to OAuth 2.0</h1>
+
+                    <p>Michał Pipa</p>
+                    <p>PHPCon Poland, Szczyrk, 27 October 2013</p>
+                </section>
+
+                <section>
+                    <h2>About me</h2>
+
+                    <ul>
+                        <li>Michał Pipa <span class="fragment roll-in">(<a href="">@michalpipa</a>)</span></li>
+                        <li>Software developer and trainer at <a href="http://iteo.co/">Iteo</a></li>
+                        <li>Zend Certified Engineer</li>
+                        <li>Free software enthusiast (<a href="http://symfony.com/">Symfony</a>)</li>
+                        <li><a href="http://spug.pl/">Silesian PHP User Group</a></li>
+                        <li><a href="http://symfonylab.pl/">Polish Symfony Community</a> (#symfony-pl)</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>This talk is about securing web services</h2>
+                </section>
+
+                <section>
+                    <h2>OAuth 2.0</h2>
+
+                    <p>Authorization framework</p>
+                </section>
+
+                <section>
+                    <h2><a href="http://tools.ietf.org/html/rfc6749">RFC 6749</a></h2>
+
+                    <p>October 2012</p>
+                </section>
+
+                <section>
+                    <h2>The old way</h2>
+
+                    <p>Authorization: Basic dXNlcjpwYXNzd29yZA==</p>
+                </section>
+
+                <section>
+                    <h2>Problems with passwords</h2>
+
+                    <ul>
+                        <li class="fragment">Third-party apps are required to store passwords for future use (plain text)</li>
+                        <li class="fragment">Servers are required to support password authentication</li>
+                        <li class="fragment">Third-party apps have full access to resource owner's resources</li>
+                        <li class="fragment">To revoke access resource owner must change password</li>
+                        <li class="fragment">Compromise of any third-party application results in compromise of the end-user's password</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Solution: OAuth 2.0</h2>
+
+                    <ul>
+                        <li class="fragment">Uses access tokens</li>
+                        <li class="fragment">Introduces authorization layer</li>
+                        <li class="fragment">Separates role of client from resource owner</li>
+                        <li class="fragment">Uses scopes to restrict access</li>
+                        <li class="fragment">Resource owner can revoke access form one specific app</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Who uses OAuth 2.0?</h2>
+
+                    <ul>
+                        <li class="fragment">Facebook</li>
+                        <li class="fragment">GitHub</li>
+                        <li class="fragment">LinkedIn</li>
+                        <li class="fragment">Twitter</li>
+                        <li class="fragment">and many more...</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Roles</h2>
+                    </section>
+
+                    <section>
+                        <h2>Client</h2>
+
+                        <p>Third-party app which is accessing resource server data</p>
+                    </section>
+
+                    <section>
+                        <h2>Resource owner</h2>
+
+                        <p>The person who is giving third-party app access to his/her resources</p>
+                    </section>
+
+                    <section>
+                        <h2>Resource server</h2>
+
+                        <p>The server hosting protected resources (API)</p>
+                    </section>
+
+                    <section>
+                        <h2>Authorization server</h2>
+
+                        <p>The server issuing access tokens to the client (often the same as resource server)</p>
+                    </section>
+
+                </section>
+
+                <section>
+                    <h2>Client types</h2>
+
+                    <ul>
+                        <li>confidential</li>
+                        <li>public</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Client types</h2>
+
+                    <ul>
+                        <li>web application</li>
+                        <li>user-agent-based application</li>
+                        <li>native application</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Client authentication</h2>
+
+                    <ul>
+                        <li>client_id</li>
+                        <li>client_secret</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Access token scope</h2>
+
+                    <p>Allow the client to specify the scope of the access request</p>
+                </section>
+
+                <section>
+                    <p><a href="http://tools.ietf.org/html/rfc6749#section-1.2">Protocol Flow</a></p>
+
+                    <pre>
+         +--------+                               +---------------+
+         |        |------ Authorization Request -&gt;|   Resource    |
+         |        |                               |     Owner     |
+         |        |&lt;------ Authorization Grant ---|               |
+         |        |                               +---------------+
+         |        |
+         |        |                               +---------------+
+         |        |------- Authorization Grant --&gt;| Authorization |
+         | Client |                               |     Server    |
+         |        |&lt;--------- Access Token -------|               |
+         |        |                               +---------------+
+         |        |
+         |        |                               +---------------+
+         |        |---------- Access Token ------&gt;|    Resource   |
+         |        |                               |     Server    |
+         |        |&lt;------- Protected Resource ---|               |
+         +--------+                               +---------------+
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Authorization grant</h2>
+
+                    <p>Credential representing the resource owner's authorization</p>
+                </section>
+
+                <section>
+                    <h2>Authorization code</h2>
+
+                    <p>The client directs the resource owner to an authorization server, which directs
+                       back to the client with the authorization code</p>
+                </section>
+
+                <section>
+                    <h2>Authorization grant request</h2>
+
+                    <pre>
+GET /authorize?response_type=code&amp;client_id=s6BhdRkqt3&amp;state=xyz
+    &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Authorization grant response</h2>
+
+                    <pre>
+HTTP/1.1 302 Found
+Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA
+          &amp;state=xyz
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Access token request</h2>
+
+                    <pre>
+        POST /token HTTP/1.1
+        Host: server.example.com
+        Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+        Content-Type: application/x-www-form-urlencoded
+
+        grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA
+        &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Access token response</h2>
+
+                    <pre>
+        HTTP/1.1 200 OK
+        Content-Type: application/json;charset=UTF-8
+        Cache-Control: no-store
+        Pragma: no-cache
+
+        {
+          "access_token":"2YotnFZFEjr1zCsicMWpAA",
+          "token_type":"example",
+          "expires_in":3600,
+          "refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",
+          "example_parameter":"example_value"
+        }
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Implicit</h2>
+
+                    <p>The client is issued access token directly</p>
+                    <p class="fragment">Simplified flow, used in JavaScript</p>
+                </section>
+
+                <section>
+                    <h2>Implicit authorization request</h2>
+
+                    <pre>
+GET /authorize?response_type=token&amp;client_id=s6BhdRkqt3&amp;state=xyz
+    &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1
+Host: server.example.com
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Implicit authorization response</h2>
+
+                    <pre>
+HTTP/1.1 302 Found
+Location: http://example.com/cb#access_token=2YotnFZFEjr1zCsicMWpAA
+          &amp;state=xyz&amp;token_type=example&amp;expires_in=3600
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Resource owner password credentials</h2>
+
+                    <p>The resource owner credentials are used directly to obtain an access token</p>
+                </section>
+
+                <section>
+                    <h2>Password credentials request</h2>
+
+                    <pre>
+     POST /token HTTP/1.1
+     Host: server.example.com
+     Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+     Content-Type: application/x-www-form-urlencoded
+
+     grant_type=password&amp;username=johndoe&amp;password=A3ddj3w
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Client credentials</h2>
+
+                    <p>The client credentials are used directly to obtain an access token</p>
+                    <p class="fragment">Used when the client is acting on its own behalf</p>
+                </section>
+
+                <section>
+                    <h2>Client credentials request</h2>
+
+                    <pre>
+         POST /token HTTP/1.1
+         Host: server.example.com
+         Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW
+         Content-Type: application/x-www-form-urlencoded
+
+         grant_type=client_credentials
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Access token</h2>
+
+                    <ul>
+                        <li class="fragment">Credentials used to access protected resources</li>
+                        <li class="fragment">String representing an authorization issued to the client</li>
+                        <li class="fragment">Represent specific scopes and durations of access</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p>$ curl -H "Authorization: Bearer MjAyNTYyNDE5YmI2MTk4OTE" https://api.example.com/resource</p>
+                </section>
+
+                <section>
+                    <h2>Refresh token</h2>
+
+                    <ul>
+                        <li class="fragment">Credentials used to obtain access tokens</li>
+                        <li class="fragment">Issued to the client by the authorization server</li>
+                        <li class="fragment">Credentials used to obtain a new access token when the current access expires</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p><a href="http://tools.ietf.org/html/rfc6749#section-1.5">Refreshing an Expired Access Token</a></p>
+
+                    <pre>
++--------+                                           +---------------+
+|        |------------ Authorization Grant ---------&gt;|               |
+|        |                                           |               |
+|        |&lt;--------------- Access Token -------------|               |
+|        |               &amp; Refresh Token             |               |
+|        |                                           |               |
+|        |                            +----------+   |               |
+|        |--------- Access Token ----&gt;|          |   |               |
+|        |                            |          |   |               |
+|        |&lt;----- Protected Resource --| Resource |   | Authorization |
+| Client |                            |  Server  |   |     Server    |
+|        |--------- Access Token ----&gt;|          |   |               |
+|        |                            |          |   |               |
+|        |&lt;----- Invalid Token Error -|          |   |               |
+|        |                            +----------+   |               |
+|        |                                           |               |
+|        |---------------- Refresh Token -----------&gt;|               |
+|        |                                           |               |
+|        |&lt;--------------- Access Token -------------|               |
++--------+           &amp; Optional Refresh Token        +---------------+
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Case study</h2>
+                </section>
+
+                <section>
+                    <h2>Case study: requirements</h2>
+
+                    <ul>
+                        <li>Mobile app (iOS and later Android)</li>
+                        <li>Third-party app integration</li>
+                        <li>REST API (PHP, Symfony, FOSOAuthServerBundle)</li>
+                        <li>All data fetched from API</li>
+                        <li>Users can register and login using Facebook and LinkedIn</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <pre>
+                +-------------+         +-----------+
+                |             |         |           |
+                |             |+-------&gt;| Facebook  |
+                |             |         |           |
+                |             |&lt;-------+| LinkedIn  |
+                |             |         |           |
+                |             |         |           |
+                | Mobile apps |         |           |
+                |             |         |           |
+                |             |         |           |
+                |             |         +-----------+
+                |    iOS      |
+                |             |         +-----------+
+                |   Android   |         |           |
+                |             |+-------&gt;|           |
+                |             |         | Backend   |
+                |             |&lt;-------+|           |
+                |             |         |           |
+                |             |         |           |
+                |             |         |           |
+                |             |         |           |
+                +-------------+         +-----------+
+                    </pre>
+                </section>
+
+                <section>
+                    <h2>Case study: solution</h2>
+
+                    <ul>
+                        <li>Custom authorization grant type</li>
+                        <li>Facebook/LinkedIn OAuth access token as authorization grant</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Summary</h2>
+
+                    <p>Don't reinvent the wheel!</p>
+                </section>
+
+                <section>
+                    <h2>Use OAuth 2.0</h2>
+                </section>
+
+                <section>
+                    <h2>Questions</h2>
+                </section>
+
+                <section>
+                    <h2>Please rate my talk</h2>
+
+                    <p><a href="https://joind.in/talk/view/9776">https://joind.in/talk/view/9776</a></p>
+                </section>
+
+                <section>
+                    <h2>Thank you!</h2>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
