@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>What's new in PHP</title>
+
+        <meta name="description" content="What's new in PHP">
+        <meta name="author" content="Michał Pipa">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/night.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <div class="slides">
+                <section>
+                    <h1>What's new in PHP</h1>
+                    <h3>PHPers, Katowice, 11 September 2014</h3>
+                    <p>Michał Pipa</p>
+                </section>
+
+                <section>
+                    <h2>About me</h2>
+
+                    <ul>
+                        <li>Michał Pipa (<a href="">@michalpipa</a>)</li>
+                        <li>Software developer and trainer at <a href="http://iteo.co/">Iteo</a></li>
+                        <li>Zend Certified Engineer</li>
+                        <li>Free software enthusiast (<a href="http://symfony.com/">Symfony</a>)</li>
+                        <li><a href="http://phpers.pl/">PHPers Silesia</a></li>
+                        <li><a href="http://symfonylab.pl/">Polish Symfony Community</a> (#symfony-pl)</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Who is still using PHP 5.2?</h1>
+                </section>
+
+                <section>
+                    <h2>Release process</h2>
+
+                    <ul>
+                        <li>Stable release every year</li>
+                        <li>3 years release cycle</li>
+                        <li>Release managers</li>
+                        <li>New features discussed through the RFC process</li>
+                        <li><a href="https://wiki.php.net/rfc/releaseprocess">Request for Comments: Release Process</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>PHP 5.3: end of life</h2>
+
+                    <p>
+                        Last release: 5.3.29
+                    </p>
+                </section>
+
+                <section>
+                    <h2>PHP 5.4: security fixes only</h2>
+
+                    <p>
+                        Released: 1 March 2012
+                    </p>
+                </section>
+
+                <section>
+                    <h2>PHP 5.5</h2>
+
+                    <p>
+                        Released: 20 June 2013
+                    </p>
+                </section>
+
+                <section>
+                    <h2>PHP 5.6</h2>
+
+                    <p>
+                        Released: 28 August 2014
+                    </p>
+                </section>
+
+                <section>
+                    <h2>PHP 5.7</h2>
+
+                    <p>
+                        Next 5.x release
+                    </p>
+                </section>
+
+                <section>
+                    <h2>PHP next: PHP 7</h2>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Wait, what about PHP 6?</h1>
+                    </section>
+
+                    <section>
+                        <h2>PHP 6 was abandoned in March 2010</h2>
+                    </section>
+
+                    <section>
+                        <h2>PHP 6 = PHP 5.3 + unicode</h2>
+                    </section>
+
+                    <section>
+                        <h2>unicode = PHP 6 - PHP 5.3</h2>
+                    </section>
+                </section>
+
+                <section>
+                    <h2><a href="http://3v4l.org/">3v4l.org</a></h2>
+
+                    <p>Online PHP &amp; HHVM shell, execute code in 100+ different versions!</p>
+                </section>
+
+                <section>
+                    <h1>New features</h1>
+                </section>
+
+                <section>
+                    <h2>PHP 5.5: Generators</h2>
+
+                    <p>
+                        Generators provide an easy, boilerplate-free way of implementing iterators.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>PHP 5.5: Generators</h2>
+
+<pre><code>
+function getLinesFromFile($fileName) {
+    if (!$fileHandle = fopen($fileName, 'r')) {
+        return;
+    }
+ 
+    while (false !== $line = fgets($fileHandle)) {
+        yield $line;
+    }
+ 
+    fclose($fileHandle);
+}
+ 
+$lines = getLinesFromFile($fileName);
+foreach ($lines as $line) {
+    // do something with $line
+}
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 5.5: Simple password hashing</h2>
+
+                    <ul>
+                        <li>md5() and sha1() are unsuitable for passwords</li>
+                        <li>password_hash() and password_verify()</li>
+                        <li>example output: $2y$12$QjSH496pcT5CEbzjD/vtVeH03tfHKFy36d4J0Ltp3lRtee9HDxY3K</li>
+                        <li>Userland implementation for PHP &gt;= 5.3.7</li>
+                    </ul>
+
+                </section>
+
+                <section>
+                    <h2>PHP 5.5: Class name resolution as scalar via "class" keyword</h2>
+
+<pre><code>
+use A\Namespaced\ClassName;
+ 
+// ClassName::class resolves to 'A\Namespaced\ClassName'
+$mock = $this-&gt;getMock(ClassName::class);
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 5.5: "finally" keyword</h2>
+
+<pre><code>
+$db = mysqli_connect();
+
+try {
+   call_some_function($db);
+} catch (Exception $e) {
+   mysqli_close($db);
+   throw $e;
+}
+
+mysql_close($db);
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 5.5: "finally" keyword</h2>
+
+<pre><code>
+$db = mysqli_connect();
+
+try {
+   call_some_function($db);
+} finally {
+   mysqli_close($db);
+}
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 5.5: Zend Opcache extension</h2>
+                </section>
+
+                <section>
+                    <h2>PHP 5.6: Exponential operator</h2>
+
+                    <p>2 ** 3</p>
+                </section>
+
+                <section>
+                    <h2>PHP 5.6: phpdbg</h2>
+
+                    <ul>
+                        <li>phpdbg is a gdb-like PHP debugger</li>
+                        <li>Implemented as a SAPI module</li>
+                        <li>Flexible breakpoints</li>
+                        <li>Disassembly of PHP Code</li>
+                        <li>Remote debugging</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>PHP 5.6: Variadic functions</h2>
+
+<pre><code>
+class MySQL implements DB {
+    public function query($query, ...$params) {
+        $stmt = $this-&amp;pdo-&amp;prepare($query);
+        $stmt-&amp;execute($params);
+        return $stmt;
+    }
+}
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 5.6: TLS Peer Verification</h2>
+                </section>
+
+                <section>
+                    <h2>PHP 5.6: Uploads equal or greater than 2GB in size are now accepted</h2>
+                </section>
+
+                <section>
+                    <h2>PHP 5.7: Integer division</h2>
+
+                    <p>3 %% 2</p>
+                </section>
+
+                <section>
+                    <h2>PHP 7</h2>
+
+                    <ul>
+                        <li>phpng</li>
+                        <li>64 bit platform improvements for string length and integer</li>
+                        <li>Abstract syntax tree</li>
+                        <li>Uniform variable syntax</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Alternative PHP implementations</h1>
+                </section>
+
+                <section>
+                    <h2><a href="http://hhvm.com/">HHVM</a></h2>
+
+                    <ul>
+                        <li>Virtual machine (not a compiler anymore)</li>
+                        <li>Uses a just-in-time (JIT) compilation</li>
+                        <li>Hack language
+                            <ul>
+                                <li>High performance</li>
+                                <li>Type annotations</li>
+                                <li>Generics</li>
+                                <li>Collections</li>
+                                <li>Lambdas</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1><a href="http://hhvm.com/blog/5723/announcing-a-specification-for-php">PHP specification</a></h1>
+                </section>
+
+                <section>
+                    <h2><a href="http://hippyvm.com/">Hippyvm</a></h2>
+
+                    <p>
+                        HippyVM is an implementation of the PHP language using PyPy technology
+                    <p>
+                </section>
+
+                <section>
+                    <h1>Thank you</h1>
+                </section>
+
+                <section>
+                    <h1>Questions?</h1>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Parallax scrolling
+                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+                // parallaxBackgroundSize: '2100px 900px',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-45601006-1', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+
+    </body>
+</html>
