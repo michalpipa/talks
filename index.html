@@ -45,7 +45,7 @@
                     <h1>Introduction to OAuth 2.0</h1>
 
                     <p>Michał Pipa</p>
-                    <p>PHPCon Poland, Szczyrk, 27 October 2013</p>
+                    <p>Software Craftmanship Silesia, Katowice, 6 October 2014</p>
                 </section>
 
                 <section>
@@ -391,58 +391,6 @@ Location: http://example.com/cb#access_token=2YotnFZFEjr1zCsicMWpAA
                 </section>
 
                 <section>
-                    <h2>Case study</h2>
-                </section>
-
-                <section>
-                    <h2>Case study: requirements</h2>
-
-                    <ul>
-                        <li>Mobile app (iOS and later Android)</li>
-                        <li>Third-party app integration</li>
-                        <li>REST API (PHP, Symfony, FOSOAuthServerBundle)</li>
-                        <li>All data fetched from API</li>
-                        <li>Users can register and login using Facebook and LinkedIn</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <pre>
-                +-------------+         +-----------+
-                |             |         |           |
-                |             |+-------&gt;| Facebook  |
-                |             |         |           |
-                |             |&lt;-------+| LinkedIn  |
-                |             |         |           |
-                |             |         |           |
-                | Mobile apps |         |           |
-                |             |         |           |
-                |             |         |           |
-                |             |         +-----------+
-                |    iOS      |
-                |             |         +-----------+
-                |   Android   |         |           |
-                |             |+-------&gt;|           |
-                |             |         | Backend   |
-                |             |&lt;-------+|           |
-                |             |         |           |
-                |             |         |           |
-                |             |         |           |
-                |             |         |           |
-                +-------------+         +-----------+
-                    </pre>
-                </section>
-
-                <section>
-                    <h2>Case study: solution</h2>
-
-                    <ul>
-                        <li>Custom authorization grant type</li>
-                        <li>Facebook/LinkedIn OAuth access token as authorization grant</li>
-                    </ul>
-                </section>
-
-                <section>
                     <h2>Summary</h2>
 
                     <p>Don't reinvent the wheel!</p>
@@ -454,12 +402,6 @@ Location: http://example.com/cb#access_token=2YotnFZFEjr1zCsicMWpAA
 
                 <section>
                     <h2>Questions</h2>
-                </section>
-
-                <section>
-                    <h2>Please rate my talk</h2>
-
-                    <p><a href="https://joind.in/talk/view/9776">https://joind.in/talk/view/9776</a></p>
                 </section>
 
                 <section>
