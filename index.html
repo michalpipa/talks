@@ -43,7 +43,7 @@
             <div class="slides">
                 <section>
                     <h1>Symfony2 Architecture</h1>
-                    <h3>PHPCon, Szczyrk, 28 September 2014</h3>
+                    <h3>Drupal Camp, Wrocław, 18 October 2014</h3>
                     <p>Michał Pipa</p>
                 </section>
 
@@ -58,36 +58,6 @@
                         <li><a href="http://phpers.pl/">PHPers Silesia</a></li>
                         <li><a href="http://symfonylab.pl/">Polish Symfony Community</a> (#symfony-pl)</li>
                     </ul>
-                </section>
-
-                <section>
-                    <h2>Paul Erdős</h2>
-
-                    <blockquote>Paul Erdős (1913–1996) was an influential mathematician who spent a large portion of his later life writing papers with a large number of colleagues, working on solutions to outstanding mathematical problems. He published more papers during his lifetime (at least 1,525) than any other mathematician in history.</blockquote>
-                </section>
-
-                <section>
-                    <h2>Erdős number</h2>
-
-                    <blockquote>The Erdős number describes the "collaborative distance" between a person and mathematician Paul Erdős, as measured by authorship of mathematical papers.</blockquote>
-                </section>
-
-                <section>
-                    <h2>Erdős number</h2>
-
-                    <blockquote>To be assigned an Erdős number, someone must be a coauthor of a research paper with another person who has a finite Erdős number. Paul Erdős has an Erdős number of zero. Anybody else's Erdős number is k + 1 where k is the lowest Erdős number of any coauthor.</blockquote>
-                </section>
-
-                <section>
-                    <h2>Mariusz Gil number</h2>
-
-                    <blockquote># of Mariusz Gil PHPCon talks - # of your PHPCon talks</blockquote>
-                </section>
-
-                <section>
-                    <h2>My Mariusz Gil number</h2>
-
-                    <h1>1</h1>
                 </section>
 
                 <section>
@@ -127,6 +97,37 @@
                 </section>
 
                 <section>
+                    <h2>Bridge</h2>
+
+                    <p>3rd party libraries integration</p>
+
+                    <ul>
+                        <li>Monolog</li>
+                        <li>Doctrine</li>
+                        <li>Propel</li>
+                        <li>Twig</li>
+                        <li>Swiftmailer</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Bundle</h2>
+
+                    <p>Plugin, just fancy name</p>
+                </section>
+
+                <section>
+                    <h2>Bundle</h2>
+
+                    <ul>
+                        <li>Doctrine</li>
+                        <li>Propel</li>
+                        <li>Twig</li>
+                        <li>Swiftmailer</li>
+                    </ul>
+                </section>
+
+                <section>
                     <h2>Dependency Injection Container</h2>
                 </section>
 
@@ -142,7 +143,7 @@ class Newsletter
 
     public function __construct()
     {
-        $this-&gt;mailer = new Mailer();
+        $this-&gt;mailer = new MyMailer();
     }
 }
                     </code></pre>
@@ -152,6 +153,20 @@ class Newsletter
 
 $newsletter = new Newsletter();
                     </code></pre>
+                </section>
+
+                <section>
+                    <h2>Dependency Injection</h2>
+
+                    <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+&lt;?php
+
+interface Mailer
+{
+    public function send();
+}
+                    </code></pre>
+
                 </section>
 
                 <section>
@@ -174,7 +189,7 @@ class Newsletter
                     <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
 &lt;?php
 
-$mailer = new Mailer();
+$mailer = new MyMailer();
 $newsletter = new Newsletter($mailer);
                     </code></pre>
                 </section>
@@ -211,7 +226,7 @@ $newsletter = new Newsletter($mailer);
 # app/config/config.yml
 services:
     mailer:
-        class:      Mailer
+        class:      MyMailer
 
     newsletter:
         class:      Newsletter
@@ -560,46 +575,11 @@ $kernel-&gt;terminate($request, $response);
                 </section>
 
                 <section>
-                    <h2>Bridge</h2>
-
-                    <p>3rd party libraries integration</p>
-
-                    <ul>
-                        <li>Monolog</li>
-                        <li>Doctrine</li>
-                        <li>Propel</li>
-                        <li>Twig</li>
-                        <li>Swiftmailer</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Bundle</h2>
-
-                    <p>Plugin, just fancy name</p>
-                </section>
-
-                <section>
-                    <h2>Bundle</h2>
-
-                    <ul>
-                        <li>Doctrine</li>
-                        <li>Propel</li>
-                        <li>Twig</li>
-                        <li>Swiftmailer</li>
-                    </ul>
-                </section>
-
-                <section>
                     <h1>Thank you</h1>
                 </section>
 
                 <section>
                     <h1>Questions?</h1>
-                </section>
-
-                <section>
-                    <h1><a href="https://joind.in/11854">joind.in/11854</a></h1>
                 </section>
 
             </div>
