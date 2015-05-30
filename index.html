@@ -43,7 +43,7 @@
             <div class="slides">
                 <section>
                     <h1>What's new in PHP</h1>
-                    <h3>PHPers, Katowice, 11 September 2014</h3>
+                    <h3>Drupal Camp, Wrocław, 30 May 2015</h3>
                     <p>Michał Pipa</p>
                 </section>
 
@@ -52,7 +52,7 @@
 
                     <ul>
                         <li>Michał Pipa (<a href="">@michalpipa</a>)</li>
-                        <li>Software developer and trainer at <a href="http://iteo.co/">Iteo</a></li>
+                        <li>Software developer at <a href="http://ez.no/">eZ Systems</a></li>
                         <li>Zend Certified Engineer</li>
                         <li>Free software enthusiast (<a href="http://symfony.com/">Symfony</a>)</li>
                         <li><a href="http://phpers.pl/">PHPers Silesia</a></li>
@@ -109,15 +109,15 @@
                 </section>
 
                 <section>
-                    <h2>PHP 5.7</h2>
+                    <h2>PHP 7</h2>
 
                     <p>
-                        Next 5.x release
+                        Alpha 1: 11 June 2015
                     </p>
-                </section>
 
-                <section>
-                    <h2>PHP next: PHP 7</h2>
+                    <p>
+                        Planned release: 12 November 2015
+                    </p>
                 </section>
 
                 <section>
@@ -139,21 +139,60 @@
                 </section>
 
                 <section>
-                    <h2><a href="http://3v4l.org/">3v4l.org</a></h2>
-
-                    <p>Online PHP &amp; HHVM shell, execute code in 100+ different versions!</p>
-                </section>
-
-                <section>
                     <h1>New features</h1>
                 </section>
 
                 <section>
-                    <h2>PHP 5.5: Generators</h2>
+                    <h2>PHP 5.3 features</h2>
 
-                    <p>
-                        Generators provide an easy, boilerplate-free way of implementing iterators.
-                    </p>
+                    <ul>
+                        <li>Namespaces</li>
+                        <li>Closures</li>
+                        <li>Late static binding</li>
+                        <li>goto</li>
+                        <li>Fixed garbage collection</li>
+                        <li>phar</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>PHP 5.4 features</h2>
+
+                    <ul>
+                        <li>Traits</li>
+                        <li>Short array syntax</li>
+                        <li>Array dereferencing</li>
+                        <li>Class member access on instantiation</li>
+                        <li>Class name resolution as scalar via "class" keyword</li>
+                        <li>Closures support $this</li>
+                        <li>Built-in server</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>PHP 5.5 features</h2>
+
+                    <ul>
+                        <li>Generators</li>
+                        <li>"finally" keyword</li>
+                        <li>Simple password hashing</li>
+                        <li>Zend Opcache extension</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>PHP 5.6 features</h2>
+
+                    <ul>
+                        <li>Constant expressions</li>
+                        <li>Variadic functions</li>
+                        <li>Exponentiation via **</li>
+                        <li><em>use function</em> and <em>use const</em></li>
+                        <li>phpdbg</li>
+                        <li>php://input is reusable</li>
+                        <li>Large file uploads (&gt; 2GB)</li>
+                        <li>SSL/TLS improvements</li>
+                    </ul>
                 </section>
 
                 <section>
@@ -192,17 +231,6 @@ foreach ($lines as $line) {
                 </section>
 
                 <section>
-                    <h2>PHP 5.5: Class name resolution as scalar via "class" keyword</h2>
-
-<pre><code>
-use A\Namespaced\ClassName;
- 
-// ClassName::class resolves to 'A\Namespaced\ClassName'
-$mock = $this-&gt;getMock(ClassName::class);
-</code></pre>
-                </section>
-
-                <section>
                     <h2>PHP 5.5: "finally" keyword</h2>
 
 <pre><code>
@@ -234,35 +262,13 @@ try {
                 </section>
 
                 <section>
-                    <h2>PHP 5.5: Zend Opcache extension</h2>
-                </section>
-
-                <section>
-                    <h2>PHP 5.6: Exponential operator</h2>
-
-                    <p>2 ** 3</p>
-                </section>
-
-                <section>
-                    <h2>PHP 5.6: phpdbg</h2>
-
-                    <ul>
-                        <li>phpdbg is a gdb-like PHP debugger</li>
-                        <li>Implemented as a SAPI module</li>
-                        <li>Flexible breakpoints</li>
-                        <li>Disassembly of PHP Code</li>
-                        <li>Remote debugging</li>
-                    </ul>
-                </section>
-
-                <section>
                     <h2>PHP 5.6: Variadic functions</h2>
 
 <pre><code>
 class MySQL implements DB {
     public function query($query, ...$params) {
-        $stmt = $this-&amp;pdo-&amp;prepare($query);
-        $stmt-&amp;execute($params);
+        $stmt = $this-&gt;pdo-&gt;prepare($query);
+        $stmt-&gt;execute($params);
         return $stmt;
     }
 }
@@ -270,28 +276,140 @@ class MySQL implements DB {
                 </section>
 
                 <section>
-                    <h2>PHP 5.6: TLS Peer Verification</h2>
+                    <h1>PHP 7</h1>
                 </section>
 
                 <section>
-                    <h2>PHP 5.6: Uploads equal or greater than 2GB in size are now accepted</h2>
-                </section>
-
-                <section>
-                    <h2>PHP 5.7: Integer division</h2>
-
-                    <p>3 %% 2</p>
-                </section>
-
-                <section>
-                    <h2>PHP 7</h2>
+                    <h2>PHP 7: Improved performance and memory usage</h2>
 
                     <ul>
-                        <li>phpng</li>
-                        <li>64 bit platform improvements for string length and integer</li>
-                        <li>Abstract syntax tree</li>
-                        <li>Uniform variable syntax</li>
+                        <li><a href="http://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html">PHP's new hashtable implementation</a></li>
+                        <li><a href="http://nikic.github.io/2015/05/05/Internal-value-representation-in-PHP-7-part-1.html">Internal value representation in PHP 7</a></li>
                     </ul>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Anonymous Classes</h2>
+
+<pre><code>
+var_dump(new class($i) {
+    public function __construct($i) {
+        $this-&gt;i = $i;
+    }
+});
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Scalar Type Declarations</h2>
+
+<pre><code>
+&lt;?php
+declare(strict_types=1);
+
+function add(int $a, int $b): int {
+    return $a + $b;
+}
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Scalar Type Declarations</h2>
+
+                    <ul>
+                        <li>type checking mode for <strong>parameter</strong> types depends on the file where the function is <strong>called</strong></li>
+                        <li>type checking mode for <strong>return</strong> types depends on the file where the function is <strong>defined</strong></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Combined Comparison (Spaceship) Operator: &lt;=&gt;</h2>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Return Type Declarations</h2>
+
+<pre><code>
+function foo(): array {
+    return [];
+}
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Uniform Variable Syntax</h2>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Combined Comparison (Spaceship) Operator: &lt;=&gt;</h2>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Null Coalesce Operator: ??</h2>
+
+<pre><code>
+isset($_GET['user']) ? $_GET['user'] : 'nobody'
+
+$_GET['mykey'] ?: ""
+
+$_GET['user'] ?? 'nobody'
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Easy User-land CSPRNG</h2>
+
+<pre><code>
+$randomStr = random_bytes($length = 16);
+ 
+$randomInt = random_int($min = 0, $max = 127);
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Group Use Declarations</h2>
+
+<pre><code>
+use Doctrine\Common\Collections\Expr\Comparison;
+use Doctrine\Common\Collections\Expr\Value;
+use Doctrine\Common\Collections\Expr\CompositeExpression;
+ 
+ 
+use Doctrine\Common\Collections\Expr\{ Comparison, Value, CompositeExpression };
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 7: intdiv()</h2>
+
+<pre><code>
+intdiv(int $numerator, int $divisor)
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Removed PHP 4 Constructors</h2>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Remove alternative PHP tags</h2>
+
+                    <ul>
+                        <li>ASP tags</li>
+                        <li>script tags</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Remove the date.timezone warning</h2>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Exceptions in the engine</h2>
+                </section>
+
+                <section>
+                    <h2>PHP 7: Abstract syntax tree</h2>
                 </section>
 
                 <section>
@@ -317,15 +435,21 @@ class MySQL implements DB {
                 </section>
 
                 <section>
-                    <h1><a href="http://hhvm.com/blog/5723/announcing-a-specification-for-php">PHP specification</a></h1>
-                </section>
-
-                <section>
                     <h2><a href="http://hippyvm.com/">Hippyvm</a></h2>
 
                     <p>
                         HippyVM is an implementation of the PHP language using PyPy technology
                     <p>
+                </section>
+
+                <section>
+                    <h2><a href="http://3v4l.org/">3v4l.org</a></h2>
+
+                    <p>Online PHP &amp; HHVM shell, execute code in 100+ different versions!</p>
+                </section>
+
+                <section>
+                    <h1><a href="http://hhvm.com/blog/5723/announcing-a-specification-for-php">PHP specification</a></h1>
                 </section>
 
                 <section>
