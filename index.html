@@ -289,14 +289,12 @@ class MySQL implements DB {
                 </section>
 
                 <section>
-                    <h2>PHP 7: Anonymous Classes</h2>
+                    <h2>PHP 7: Return Type Declarations</h2>
 
 <pre><code>
-var_dump(new class($i) {
-    public function __construct($i) {
-        $this-&gt;i = $i;
-    }
-});
+function foo(): array {
+    return [];
+}
 </code></pre>
                 </section>
 
@@ -323,25 +321,23 @@ function add(int $a, int $b): int {
                 </section>
 
                 <section>
-                    <h2>PHP 7: Combined Comparison (Spaceship) Operator: &lt;=&gt;</h2>
-                </section>
-
-                <section>
-                    <h2>PHP 7: Return Type Declarations</h2>
+                    <h2>PHP 7: Anonymous Classes</h2>
 
 <pre><code>
-function foo(): array {
-    return [];
-}
+var_dump(new class($i) {
+    public function __construct($i) {
+        $this-&gt;i = $i;
+    }
+});
 </code></pre>
                 </section>
 
                 <section>
-                    <h2>PHP 7: Uniform Variable Syntax</h2>
+                    <h2>PHP 7: Combined Comparison (Spaceship) Operator: &lt;=&gt;</h2>
                 </section>
 
                 <section>
-                    <h2>PHP 7: Combined Comparison (Spaceship) Operator: &lt;=&gt;</h2>
+                    <h2>PHP 7: Uniform Variable Syntax</h2>
                 </section>
 
                 <section>
