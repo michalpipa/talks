@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8">
 
-        <title>What's new in PHP</title>
+        <title>PHP7</title>
 
-        <meta name="description" content="What's new in PHP">
+        <meta name=i"description" content="PHP7">
         <meta name="author" content="Michał Pipa">
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -42,8 +42,12 @@
 
             <div class="slides">
                 <section>
-                    <h1>What's new in PHP</h1>
-                    <h3>Drupal Camp, Wrocław, 30 May 2015</h3>
+                    <h1>PHP 7</h1>
+                </section>
+
+                <section>
+                    <h1>PHP 7</h1>
+                    <h3>4developers, 11 April 2016</h3>
                     <p>Michał Pipa</p>
                 </section>
 
@@ -51,8 +55,8 @@
                     <h2>About me</h2>
 
                     <ul>
-                        <li>Michał Pipa (<a href="">@michalpipa</a>)</li>
-                        <li>Software developer at <a href="http://ez.no/">eZ Systems</a></li>
+                        <li>Michał Pipa (<a href="http://twitter.com/michalpipa">@michalpipa</a>)</li>
+                        <li>Software developer, trainer</li>
                         <li>Zend Certified Engineer</li>
                         <li>Free software enthusiast (<a href="http://symfony.com/">Symfony</a>)</li>
                         <li><a href="http://phpers.pl/">PHPers Silesia</a></li>
@@ -61,63 +65,11 @@
                 </section>
 
                 <section>
-                    <h1>Who is still using PHP 5.2?</h1>
+                    <h1>PHP 7</h1>
                 </section>
 
                 <section>
-                    <h2>Release process</h2>
-
-                    <ul>
-                        <li>Stable release every year</li>
-                        <li>3 years release cycle</li>
-                        <li>Release managers</li>
-                        <li>New features discussed through the RFC process</li>
-                        <li><a href="https://wiki.php.net/rfc/releaseprocess">Request for Comments: Release Process</a></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>PHP 5.3: end of life</h2>
-
-                    <p>
-                        Last release: 5.3.29
-                    </p>
-                </section>
-
-                <section>
-                    <h2>PHP 5.4: security fixes only</h2>
-
-                    <p>
-                        Released: 1 March 2012
-                    </p>
-                </section>
-
-                <section>
-                    <h2>PHP 5.5</h2>
-
-                    <p>
-                        Released: 20 June 2013
-                    </p>
-                </section>
-
-                <section>
-                    <h2>PHP 5.6</h2>
-
-                    <p>
-                        Released: 28 August 2014
-                    </p>
-                </section>
-
-                <section>
-                    <h2>PHP 7</h2>
-
-                    <p>
-                        Alpha 1: 11 June 2015
-                    </p>
-
-                    <p>
-                        Planned release: 12 November 2015
-                    </p>
+                    <h1>phpng</h1>
                 </section>
 
                 <section>
@@ -139,144 +91,31 @@
                 </section>
 
                 <section>
-                    <h1>New features</h1>
+                    <h1>PHP 7 vs. HHVM</h1>
                 </section>
 
                 <section>
-                    <h2>PHP 5.3 features</h2>
+                    <h1>Why not HHVM?</h1>
 
                     <ul>
-                        <li>Namespaces</li>
-                        <li>Closures</li>
-                        <li>Late static binding</li>
-                        <li>goto</li>
-                        <li>Fixed garbage collection</li>
-                        <li>phar</li>
+                        <li>Deploying is not easy and slow</li>
+                        <li>Compatibility</li>
+                        <li>Incompatible extensions</li>
+                        <li>Developed by single company</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>PHP 5.4 features</h2>
+                    <h1>Is PHP 7 ready for production use?</h1>
+                </section>
+
+                <section>
+                    <h1>Who is using PHP 7?</h1>
 
                     <ul>
-                        <li>Traits</li>
-                        <li>Short array syntax</li>
-                        <li>Array dereferencing</li>
-                        <li>Class member access on instantiation</li>
-                        <li>Class name resolution as scalar via "class" keyword</li>
-                        <li>Closures support $this</li>
-                        <li>Built-in server</li>
+                        <li>Etsy</li>
+                        <li>Badoo</li>
                     </ul>
-                </section>
-
-                <section>
-                    <h2>PHP 5.5 features</h2>
-
-                    <ul>
-                        <li>Generators</li>
-                        <li>"finally" keyword</li>
-                        <li>Simple password hashing</li>
-                        <li>Zend Opcache extension</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>PHP 5.6 features</h2>
-
-                    <ul>
-                        <li>Constant expressions</li>
-                        <li>Variadic functions</li>
-                        <li>Exponentiation via **</li>
-                        <li><em>use function</em> and <em>use const</em></li>
-                        <li>phpdbg</li>
-                        <li>php://input is reusable</li>
-                        <li>Large file uploads (&gt; 2GB)</li>
-                        <li>SSL/TLS improvements</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>PHP 5.5: Generators</h2>
-
-<pre><code>
-function getLinesFromFile($fileName) {
-    if (!$fileHandle = fopen($fileName, 'r')) {
-        return;
-    }
- 
-    while (false !== $line = fgets($fileHandle)) {
-        yield $line;
-    }
- 
-    fclose($fileHandle);
-}
- 
-$lines = getLinesFromFile($fileName);
-foreach ($lines as $line) {
-    // do something with $line
-}
-</code></pre>
-                </section>
-
-                <section>
-                    <h2>PHP 5.5: Simple password hashing</h2>
-
-                    <ul>
-                        <li>md5() and sha1() are unsuitable for passwords</li>
-                        <li>password_hash() and password_verify()</li>
-                        <li>example output: $2y$12$QjSH496pcT5CEbzjD/vtVeH03tfHKFy36d4J0Ltp3lRtee9HDxY3K</li>
-                        <li>Userland implementation for PHP &gt;= 5.3.7</li>
-                    </ul>
-
-                </section>
-
-                <section>
-                    <h2>PHP 5.5: "finally" keyword</h2>
-
-<pre><code>
-$db = mysqli_connect();
-
-try {
-   call_some_function($db);
-} catch (Exception $e) {
-   mysqli_close($db);
-   throw $e;
-}
-
-mysql_close($db);
-</code></pre>
-                </section>
-
-                <section>
-                    <h2>PHP 5.5: "finally" keyword</h2>
-
-<pre><code>
-$db = mysqli_connect();
-
-try {
-   call_some_function($db);
-} finally {
-   mysqli_close($db);
-}
-</code></pre>
-                </section>
-
-                <section>
-                    <h2>PHP 5.6: Variadic functions</h2>
-
-<pre><code>
-class MySQL implements DB {
-    public function query($query, ...$params) {
-        $stmt = $this-&gt;pdo-&gt;prepare($query);
-        $stmt-&gt;execute($params);
-        return $stmt;
-    }
-}
-</code></pre>
-                </section>
-
-                <section>
-                    <h1>PHP 7</h1>
                 </section>
 
                 <section>
@@ -388,6 +227,10 @@ intdiv(int $numerator, int $divisor)
                 </section>
 
                 <section>
+                    <h2>PHP 7: Reserve More Types in PHP 7</h2>
+                </section>
+
+                <section>
                     <h2>PHP 7: Remove alternative PHP tags</h2>
 
                     <ul>
@@ -402,6 +245,9 @@ intdiv(int $numerator, int $divisor)
 
                 <section>
                     <h2>PHP 7: Exceptions in the engine</h2>
+
+                    <p>Before: Fatal error: Call to a member function method() on a non-object</p>
+                    <p>After: Fatal error: Uncaught exception 'EngineException' with message 'Call to a member function method() on a non-object'</p>
                 </section>
 
                 <section>
@@ -409,33 +255,14 @@ intdiv(int $numerator, int $divisor)
                 </section>
 
                 <section>
-                    <h1>Alternative PHP implementations</h1>
-                </section>
-
-                <section>
-                    <h2><a href="http://hhvm.com/">HHVM</a></h2>
+                    <h1>Tools</h1>
 
                     <ul>
-                        <li>Virtual machine (not a compiler anymore)</li>
-                        <li>Uses a just-in-time (JIT) compilation</li>
-                        <li>Hack language
-                            <ul>
-                                <li>High performance</li>
-                                <li>Type annotations</li>
-                                <li>Generics</li>
-                                <li>Collections</li>
-                                <li>Lambdas</li>
-                            </ul>
-                        </li>
+                        <li>php7mar</li>
+                        <li>Phan</li>
+                        <li>Exakat</li>
+                        <li>Tuli</li>
                     </ul>
-                </section>
-
-                <section>
-                    <h2><a href="http://hippyvm.com/">Hippyvm</a></h2>
-
-                    <p>
-                        HippyVM is an implementation of the PHP language using PyPy technology
-                    <p>
                 </section>
 
                 <section>
