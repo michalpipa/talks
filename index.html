@@ -1,0 +1,431 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Time and date for programmers</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+                    <h1>Time and date for programmers</h1>
+                </section>
+
+				<section>
+                    <h1>Time and date for programmers</h1>
+                    <h3>Michał Pipa</h3>
+                    <h3>Boiling Frogs, Wrocław, 2017-02-25</h3>
+                </section>
+
+				<section>
+                    <h2>About me:</h2>
+
+                    <ul>
+                        <li>PHP &amp; Symfony</li>
+                        <li><a href="http://phpers.pl/">PHPers</a></li>
+                    </ul>
+                </section>
+
+				<section>
+                    <h1>Date format</h1>
+                </section>
+
+                <section>
+                    <a href="https://xkcd.com/1179/"><img src="images/iso_8601.png" alt=""></a>
+                </section>
+
+                <section>
+                    <p>ISO 8601 was published on 06/05/88 and most recently amended on 12/01/04.</p>
+                </section>
+
+                <section>
+                    <h2>ISO 8601</h2>
+
+                    <p>2017-02-24T23:04:17Z</p>
+                    <p>2017-02-24T23:04:17+00:00</p>
+                </section>
+
+                <section>
+                    <h2>RFC 3339</h2>
+
+                    <p>1985-04-12T23:20:50.52Z</p>
+                    <p>1996-12-19T16:39:57-08:00</p>
+                </section>
+
+                <section>
+                    <h2>RFC 2616</h2>
+
+                    <p>Sun, 06 Nov 1994 08:49:37 GMT</p>
+                </section>
+
+                <section>
+                    <h2>Unix timestamp</h2>
+
+                    <p>number of seconds since midnight, 1 January 1970 (UTC)</p>
+                </section>
+
+                <section>
+                    <h2>Unix timestamp</h2>
+
+                    <p>1488024000</p>
+                </section>
+
+                <section>
+                    <p>Avoid date formats not specifying time zone</p>
+
+                    <p><span style="text-decoration:line-through;">2016-01-10 13:14:15</span></p>
+                </section>
+
+                <section>
+                    <p>
+                        Programmers are not always aware of ISO 8601.
+                        Use it everywhere, UI can be an exception of this rule.
+                    </p>
+                </section>
+
+                <section>
+                    <h1>ISO week number</h1>
+                </section>
+
+                <section>
+                    <p>The ISO 8601 definition for week 01 is the week with the Gregorian year's first Thursday in it.</p>
+                </section>
+
+                <section>
+                    <h1>Leap years</h1>
+                </section>
+
+                <section>
+                    <p>Criteria to identify leap year:</p>
+
+                    <ul>
+                        <li>year can be evenly divided by 4</li>
+                        <li>if year can be evenly divided by 100, it is not a leap year</li>
+                        <li>unless year can be evenly divided by 400</li>
+                        </ul>
+                </section>
+
+                <section>
+                    <h2>Leap years</h2>
+
+                    <ul>
+                        <li>1896</li>
+                        <li>1904</li>
+                        <li>...</li>
+                        <li>1996</li>
+                        <li>2000</li>
+                        <li>2004</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p><span style="text-decoration:line-through;">next year = year + 365 days</span></p>
+                    <p>next year = year + 1 year</p>
+                </section>
+
+                <section>
+                    <h1>Easter</h1>
+                </section>
+
+                <section>
+                    <h2>Computus</h2>
+
+                    <p>The calculation used to determine the calendar date of Easter</p>
+                </section>
+
+                <section>
+                    <p>Check if your programming language has function for Easter date</p>
+                </section>
+
+                <section>
+                    <h1>Leap seconds</h1>
+                </section>
+
+                <section>
+                    <h2>Universal Time (UT1)</h2>
+
+                    <p>Based on Earth's rotation</p>
+                </section>
+
+                <section>
+                    <h2>Coordinated Universal Time (UTC)</h2>
+
+                    <p>Based on Atomic time</p>
+                </section>
+
+                <section>
+                    <h2>Leap second</h2>
+
+                    <ul>
+                        <li>Earth slows down it's rotation</li>
+                        <li>extra second can be added or removed from UTC</li>
+                        <li>occurs on midnight UTC</li>
+                        <li>usually last day of June or December</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Leap second insertion</h2>
+
+                    <ul>
+                        <li>23:59:58</li>
+                        <li>23:59:59</li>
+                        <li><strong>23:59:60</strong></li>
+                        <li>00:00:00</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Leap second removal</h2>
+
+                    <ul>
+                        <li>23:59:57</li>
+                        <li>23:59:58</li>
+                        <li>00:00:00</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <p>Unix timestamp ignores leap seconds</p>
+                </section>
+
+                <section>
+                    <h2>Leap second insertion</h2>
+
+                    <ul>
+                        <li>1483228798</li>
+                        <li>1483228799</li>
+                        <li><strong>1483228799</strong></li>
+                        <li>1483228800</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <img src="images/hetzner.png" alt="">
+                </section>
+
+                <section>
+                    <h2>How to handle leap second? (Linux)</h2>
+
+                    <ul>
+                        <li>kernel backward step</li>
+                        <li>daemon backward step</li>
+                        <li>ignore leap second and correct by slewing</li>
+                        <li>client slew</li>
+                        <li>server slew</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Time zones</h1>
+                </section>
+
+                <section>
+                    <h2>Time zone naming</h2>
+
+                    <ul>
+                        <li>CET</li>
+                        <li>Europe/Warsaw</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Time zone offset is not always full hour</h2>
+                </section>
+
+                <section>
+                    <p>Asia/Kolkata +05:30</p>
+                </section>
+
+                <section>
+                    <p>Asia/Kathmandu +05:45</p>
+                </section>
+
+                <section>
+                    <h1>Daylight saving time (DST)</h1>
+                </section>
+
+                <section>
+                    <p>Time difference between Warsaw and Sydney</p>
+                </section>
+
+                <section>
+                    <p>Date: 2017-02-25</p>
+                    <p>Warsaw: UTC + 1</p>
+                    <p>Sydney: UTC + 11</p>
+                    <p>Difference: 10 hours</p>
+                </section>
+
+                <section>
+                    <p>Date: 2017-03-27</p>
+                    <p>Warsaw: UTC + 2</p>
+                    <p>Sydney: UTC + 11</p>
+                    <p>Difference: 9 hours</p>
+                </section>
+
+                <section>
+                    <p>Date: 2017-04-03</p>
+                    <p>Warsaw: UTC + 2</p>
+                    <p>Sydney: UTC + 10</p>
+                    <p>Difference: 8 hours</p>
+                </section>
+
+                <section>
+                    <p>Date: 2017-10-02</p>
+                    <p>Warsaw: UTC + 2</p>
+                    <p>Sydney: UTC + 11</p>
+                    <p>Difference: 9 hours</p>
+                </section>
+
+                <section>
+                    <p>Date: 2017-10-30</p>
+                    <p>Warsaw: UTC + 1</p>
+                    <p>Sydney: UTC + 11</p>
+                    <p>Difference: 10 hours</p>
+                </section>
+
+                <section>
+                    <h2>DST offset is not always full hour</h2>
+                </section>
+
+                <section>
+                    <p>Australia/Lord_Howe +10:30</p>
+                    <p>Australia/Lord_Howe +11:00 (DST)</p>
+                </section>
+
+                <section>
+                    <p>Africa/Casablanca suspends DST for about a month (Ramadan)</p>
+                </section>
+
+                <section>
+                    <p>DST in 2016 for Africa/Casablanca</p>
+                    <p>from 2016-03-27 to 2016-06-05</p>
+                    <p>from 2016-07-10 to 2016-10-30</p>
+                </section>
+
+                <section>
+                    <img src="images/debian.png" alt="">
+                </section>
+
+                <section>
+                    <img src="images/angular.png" alt="">
+                </section>
+
+                <section>
+                    <h2><a href="https://www.timeanddate.com/">Time and Date</a></h2>
+                </section>
+
+                <section>
+                    <h1>How to measure elapsed time?</h1>
+                </section>
+
+                <section>
+                    <pre><code data-trim data-noescape>
+start = now()
+f()
+end = start - now()
+                    </code></pre>
+                </section>
+
+                <section>
+                    <p>If you want to measure elapsed time use monotonic clock</p>
+                </section>
+
+                <section>
+                    <p>If your code depends on time make it an input parameter</p>
+                </section>
+
+                <section>
+                    <p>Instead of this:</p>
+
+                    <pre><code data-trim data-noescape>
+function f()
+{
+    $now = time();
+    // ...
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <p>Do this:</p>
+
+                    <pre><code data-trim data-noescape>
+function f($time)
+{
+    $now = $time;
+    // ...
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <p>In your application do not call system clock</p>
+                </section>
+
+                <section>
+                    <pre><code data-trim data-noescape>
+interface Clock
+{
+    public function now(): DateTimeImmutable;
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <pre><code data-trim data-noescape>
+class SystemClock
+{
+    public function now(): DateTimeImmutable
+    {
+        return new DateTimeImmutable();
+    }
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h1>Thank you!</h1>
+                </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+                controls: false,
+                progress: false,
+                transition: 'none',
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
