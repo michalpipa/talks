@@ -31,7 +31,7 @@
                 <section>
                     <h1>Time and date for programmers</h1>
                     <h3>Michał Pipa</h3>
-                    <h3>PHPers Summit, Poznań, 2017-09-02</h3>
+                    <h3>PHPers Trójmiasto, Gdańsk, 2017-10-16</h3>
                 </section>
 
                 <section>
@@ -40,7 +40,7 @@
                     <ul>
                         <li>PHP &amp; Symfony</li>
                         <li><a href="http://phpers.pl/">PHPers</a></li>
-                        <li>szkolenia, konsulatcje</li>
+                        <li>trainings, consulting</li>
                     </ul>
                 </section>
 
@@ -276,36 +276,48 @@
                 <section>
                     <p>Date: 2017-02-25</p>
                     <p>Warsaw: UTC + 1</p>
-                    <p>Sydney: UTC + 11</p>
+                    <p>Sydney: UTC + 11 (DST)</p>
                     <p>Difference: 10 hours</p>
                 </section>
 
                 <section>
                     <p>Date: 2017-03-27</p>
-                    <p>Warsaw: UTC + 2</p>
-                    <p>Sydney: UTC + 11</p>
+                    <p>Warsaw: UTC + 2 (DST)</p>
+                    <p>Sydney: UTC + 11 (DST)</p>
                     <p>Difference: 9 hours</p>
                 </section>
 
                 <section>
                     <p>Date: 2017-04-03</p>
-                    <p>Warsaw: UTC + 2</p>
+                    <p>Warsaw: UTC + 2 (DST)</p>
                     <p>Sydney: UTC + 10</p>
                     <p>Difference: 8 hours</p>
                 </section>
 
                 <section>
                     <p>Date: 2017-10-02</p>
-                    <p>Warsaw: UTC + 2</p>
-                    <p>Sydney: UTC + 11</p>
+                    <p>Warsaw: UTC + 2 (DST)</p>
+                    <p>Sydney: UTC + 11 (DST)</p>
                     <p>Difference: 9 hours</p>
                 </section>
 
                 <section>
                     <p>Date: 2017-10-30</p>
                     <p>Warsaw: UTC + 1</p>
-                    <p>Sydney: UTC + 11</p>
+                    <p>Sydney: UTC + 11 (DST)</p>
                     <p>Difference: 10 hours</p>
+                </section>
+
+                <section>
+                    <a href="http://sejm.gov.pl/Sejm8.nsf/PrzebiegProc.xsp?nr=1852">
+                        <img src="images/dst_poland.png">
+                    </a>
+                </section>
+
+                <section>
+                    <a href="http://www.telegraph.co.uk/news/2017/10/13/poland-could-become-first-eu-country-scrap-winter-summer-time/">
+                        <img src="images/dst_poland_the_telegraph.png">
+                    </a>
                 </section>
 
                 <section>
@@ -345,9 +357,9 @@
 
                 <section>
                     <pre><code data-trim data-noescape>
-start = now()
+start = time()
 f()
-end = start - now()
+end = time() - start
                     </code></pre>
                 </section>
 
@@ -365,7 +377,7 @@ end = start - now()
                     <pre><code data-trim data-noescape>
 function f()
 {
-    $now = time();
+    now = time();
     // ...
 }
                     </code></pre>
@@ -375,9 +387,9 @@ function f()
                     <p>Do this:</p>
 
                     <pre><code data-trim data-noescape>
-function f($time)
+function f(time)
 {
-    $now = $time;
+    now = time;
     // ...
 }
                     </code></pre>
